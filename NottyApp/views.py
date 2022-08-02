@@ -1,6 +1,8 @@
 from tracemalloc import start
 from urllib import response
 from xml.dom.minidom import Attr
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect
 import requests
 from .forms import RouteForm
