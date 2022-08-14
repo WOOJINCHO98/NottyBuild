@@ -12,6 +12,9 @@ import pytz
 import time
 import schedule
 
+from django.http.request import HttpHeaders
+from django.http import HttpResponse
+
 
 key_num = '6f4d796a726a6f77353772777a4e48'
 path_key = '66794970516a6f7737317a58794163'
@@ -2149,3 +2152,68 @@ def real_min(request):
 
 def arrive(request):
     return render(request, 'arrive.html')
+
+
+
+
+def send_notification(registration_ids , message_title , message_desc):
+    fcm_api = "AAAAPLVafOQ:APA91bFrZ6r2uS5HOx6AqptsohWyq1-UBI6jNhLAoWisYhHkrQa4we6-Q8vUxbd8BxA-Wtz23R7KBKX4_QEVKpsovnOVJUJC6DpTcUQVMmRR_8fKGZjGgS0uqS0OeZUT2J2asE9w4gyj"
+    url = "https://fcm.googleapis.com/fcm/send"
+    
+    headers = {
+    "Content-Type":"application/json",
+    "Authorization": 'key='+fcm_api}
+
+    payload = {
+        "registration_ids" :registration_ids,
+        "priority" : "high",
+        "notification" : {
+            "body" : message_desc,
+            "title" : message_title,
+            "image" : "https://i.ytimg.com/vi/m5WUPHRgdOA/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDwz-yjKEdwxvKjwMANGk5BedCOXQ",
+            "icon": "https://yt3.ggpht.com/ytc/AKedOLSMvoy4DeAVkMSAuiuaBdIGKC7a5Ib75bKzKO3jHg=s900-c-k-c0x00ffffff-no-rj",
+            
+        }
+    }
+
+    result = requests.post(url,  data=json.dumps(payload), headers=headers )
+    print(result.json())
+
+
+
+
+
+def send(request):
+    resgistration  = ['dV6cEZaPqESTIx6cnCYWCX:APA91bEX8KsH-E8k3BD5nhXuPOuul2kLwuAiV-dgnD3m86VRuLnAWDObNPzoO5wum6uo9NqMVKCeGkv787Rnu2wakCHQT80FB4biXOaO5Gxs7foHIc75R1SCx2zQa4qWQ3mnWYCFZZLG']
+    send_notification(resgistration , 'asdf' , 'qwer')
+    return HttpResponse("sent")
+
+
+
+
+def showFirebaseJS(request):
+    data='importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js");' \
+         'importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js"); ' \
+         'var firebaseConfig = {' \
+         '        apiKey: "AIzaSyB7kDt6u_8oVS_IjV_dYq8GmthV8x9n3kU",' \
+         '        authDomain: "notty-34ee7.firebaseapp.com",' \
+         '        databaseURL: "",' \
+         '        projectId: "notty-34ee7",' \
+         '        storageBucket: "notty-34ee7.appspot.com",' \
+         '        messagingSenderId: "260740644068",' \
+         '        appId: "1:260740644068:web:2ede7cab29eae48e9740f1",' \
+         '        measurementId: "G-3VT1R1RFGL"' \
+         ' };' \
+         'firebase.initializeApp(firebaseConfig);' \
+         'const messaging=firebase.messaging();' \
+         'messaging.setBackgroundMessageHandler(function (payload) {' \
+         '    console.log(payload);' \
+         '    const notification=JSON.parse(payload);' \
+         '    const notificationOption={' \
+         '        body:notification.body,' \
+         '        icon:notification.icon' \
+         '    };' \
+         '    return self.registration.showNotification(payload.notification.title,notificationOption);' \
+         '});'
+
+    return HttpResponse(data,content_type="text/javascript")
