@@ -116,6 +116,7 @@ min_joined_train_num_list = ''
 min_path_list = ''
 min_joined_time_table_list =''
 user_token=''
+resgistration = []
 # Create your views here.
 def home(request):
     global destword
@@ -1840,6 +1841,7 @@ def sht(request):
         global found
         global time_tag
         global user_token
+        global resgistration
         arrive_tag = 0
         time_tag = 0
         left_tag = 0
@@ -1977,21 +1979,29 @@ def sht(request):
                 print('출발 태그 예외')
                 left_tag = 99
                 
+            resgistration  = [user_token]
+            
+            print(sht_real_path_list)
+            print(real_time_position)
             if real_time_position == sht_real_path_list[-2]:
                 arrive_tag = 1
-                send_notification(user_token , 'Notty 알림' , '목적지에 도착했습니다.')
+                send_notification(resgistration , 'Notty 알림' , '목적지에 도착했습니다.')
                 print('도착역 도착')
             elif real_time_position == sht_real_path_list[-3]:
-                send_notification(user_token , 'Notty 알림' , '전 역에 도착했습니다. 내릴 준비 해주세요.')
+                send_notification(resgistration , 'Notty 알림' , '전 역에 도착했습니다. 내릴 준비 해주세요.')
                 arrive_tag = 2
                 print('도착역 전 역 도착')
             elif real_time_position == sht_real_path_list[-4]:
-                send_notification(user_token , 'Notty 알림' , '전전 역에 도착했습니다. 내릴 준비 해주세요.')
+                send_notification(resgistration , 'Notty 알림' , '전전 역에 도착했습니다. 내릴 준비 해주세요.')
                 arrive_tag = 3
                 print('도착역 전전역 도착')
             else: 
                 print("도착 태그 예외")
                 
+            if arrive_tag == 1:
+                print('도착')
+                return render(request,'arrive.html')
+            
             #실시간 다음역 지정
             real_next_station = sht_real_path_list[1]
         else:
@@ -2207,7 +2217,7 @@ def send_notification(registration_ids , message_title , message_desc):
     }
 
     result = requests.post(url,  data=json.dumps(payload), headers=headers )
-    print(result.json())
+    #print(result.json())
 
 
 
@@ -2217,9 +2227,9 @@ def send(request):
     global user_token
 
     resgistration  = [user_token]
+    time.sleep(1)
     
-    
-    send_notification(resgistration , 'asdf' , 'qwer')
+    send_notification(resgistration , 'Code Keen added a new video' , 'Code Keen new video alert')
     return HttpResponse("sent")
 
 
@@ -2231,7 +2241,7 @@ def showFirebaseJS(request):
          'var firebaseConfig = {' \
          '        apiKey: "AIzaSyB7kDt6u_8oVS_IjV_dYq8GmthV8x9n3kU",' \
          '        authDomain: "notty-34ee7.firebaseapp.com",' \
-         '        databaseURL: "",' \
+         '        databaseURL: "https://notty-34ee7.firebaseio.com",' \
          '        projectId: "notty-34ee7",' \
          '        storageBucket: "notty-34ee7.appspot.com",' \
          '        messagingSenderId: "260740644068",' \
