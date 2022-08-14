@@ -22,7 +22,7 @@ path_key = '66794970516a6f7737317a58794163'
 
 '''
 화면에 표시 할 자료
-line : 처음 탄 지하철의 호선 (최단 시간)
+sht_line : 처음 탄 지하철의 호선 (최단 시간)
 min_line : 처음 탄 지하철의 호선 (최소 환승)
 
 sht_path_list : 최단 시간 경로
@@ -88,7 +88,7 @@ min_joined_station_code_list1 = ''
 real_time_position = ''
 sht_joined_time_table_list = ''
 sht_path_trans_cnt = ''
-line =''
+sht_line =''
 line_obj = ''
 obj = ''
 sht_path_msg =''
@@ -115,14 +115,19 @@ min_path_msg =''
 min_joined_train_num_list = ''
 min_path_list = ''
 min_joined_time_table_list =''
+user_token=''
 # Create your views here.
 def home(request):
     global destword
+    global user_token
     if request.method == 'POST':
         print('POST 요청 홈에서')
         form = RouteForm(request.POST)
         searchword = request.POST.get('start')
         destword = request.POST.get('fin')
+
+        user_token = request.POST.get('user_token')
+
         if form.is_valid():
             #데이터 저장
             rt = Route()
@@ -168,7 +173,7 @@ def home(request):
             global sht_path_trans_cnt
             global line_obj
             global temp_line
-            global line
+            global sht_line
             global sht_joined_train_num_list
             global last_time
             global min_joined_train_num_list
@@ -279,7 +284,7 @@ def home(request):
             print(trans_path_obj1)
             '''
             
-            
+            real_time_position = searchword
 
             #지하철 경로 조회 서비스 (최단 시간) https://devming.tistory.com/214 |http://swopenAPI.seoul.go.kr/api/subway/인증Key값/요청데이터형식/OpenAPI 이름(서비스명)/요청 데이터 행 시작번호/요청 데이터 행 끝번호/출발역명/도착역명
             path_api_url = 'http://swopenAPI.seoul.go.kr/api/subway/'+key_num+'/json/shortestRoute/0/10/'+searchword+'/'+destword
@@ -459,13 +464,13 @@ def home(request):
             min_joined_next_line_list = [v for v in min_joined_next_line_list if v]
             
             #노선 찾기
-            line = ''
+            sht_line = ''
             for item in joined_line_list:
                 for jtem in joined_next_line_list:
                     if item == jtem:
-                        line = jtem
+                        sht_line = jtem
                         break
-            print(line)
+            print(sht_line)
             min_line = ''
             for item in joined_line_list:
                 for jtem in min_joined_next_line_list:
@@ -476,29 +481,29 @@ def home(request):
             
             
             '''
-            if line = '01호선':
+            if sht_line = '01호선':
                 min_code = 
-            elif line ='02호선':
+            elif sht_line ='02호선':
             
-            elif line = '03호선':
+            elif sht_line = '03호선':
             
-            elif line = '04호선':
+            elif sht_line = '04호선':
             
-            elif line = '05호선':
+            elif sht_line = '05호선':
             
-            elif line = '06호선':
+            elif sht_line = '06호선':
             
-            elif line = '07호선':
+            elif sht_line = '07호선':
             
-            elif line = '08호선':
+            elif sht_line = '08호선':
             
-            elif line = '09호선':
+            elif sht_line = '09호선':
             
-            elif line = '경의선':
+            elif sht_line = '경의선':
             
-            elif line = '수인분당선':
+            elif sht_line = '수인분당선':
             
-            elif line = '경춘선'
+            elif sht_line = '경춘선'
 '''
 
             
@@ -506,7 +511,7 @@ def home(request):
             ### 출발 호선 기준으로 호선 내 지하철 역 찾기 (최단시간)
             #서울교통공사 노선별 지하철역 정보  http://data.seoul.go.kr/dataList/OA-15442/S/1/datasetView.do
             
-            line_api_url = 'http://openapi.seoul.go.kr:8088/'+key_num+'/json/SearchSTNBySubwayLineInfo/1/200/ / /'+line
+            line_api_url = 'http://openapi.seoul.go.kr:8088/'+key_num+'/json/SearchSTNBySubwayLineInfo/1/200/ / /'+sht_line
             line_response = requests.get(line_api_url)
             line_resdata = line_response.text
             line_obj = json.loads(line_resdata)
@@ -522,7 +527,7 @@ def home(request):
             joined_station_list = joined_station_list.split(',')
             joined_station_list = [v for v in joined_station_list if v]
 
-            if line == '1' or line == '01호선':
+            if sht_line == '1' or sht_line == '01호선':
                 temp_index = 0
                 temp_index = joined_station_list.index('서울역')
                 joined_station_list[temp_index] = '서울'
@@ -583,7 +588,7 @@ def home(request):
                     for jtem in sht_path_code_obj:
                         
                         if jtem.get('STATION_NM') == item:
-                            if line == jtem.get('LINE_NUM'):
+                            if sht_line == jtem.get('LINE_NUM'):
                                 sht_station_code_list += jtem.get('STATION_CD')
                                 sht_station_code_list += ','
                 sht_joined_station_code_list = " ".join(sht_station_code_list)
@@ -602,14 +607,23 @@ def home(request):
                 sht_next_code = sht_joined_station_code_list[1]
                             
                 print(sht_start_code)
-                #최단시간 상행 하행 여부
-                if int(sht_start_code) - int(sht_next_code) > 0 :
-                    up_down_tag = '1'
-                else :
-                    up_down_tag = '2'
+                # 최단시간 상행 하행 여부
+                if sht_line == '03호선' or sht_line == '04호선' or sht_line == '07호선' or sht_line == '08호선':
+                    if int(sht_start_code) - int(sht_next_code) > 0:
+                        up_down_tag = '1'
+                    else:
+                        up_down_tag = '2'
+                elif sht_line == '01호선' or sht_line == '02호선' or sht_line == '05호선' or sht_line == '06호선' or sht_line == '09호선':
+                    if int(sht_start_code) - int(sht_next_code) > 0:
+                        up_down_tag = '2'
+                    else:
+                        up_down_tag = '1'
                     
                     
                 #########################################
+                print(week_tag)
+                print(up_down_tag)
+                
                 #서울시 역코드로 지하철역별 열차 시간표 정보 검색 https://data.seoul.go.kr/dataList/OA-101/A/1/datasetView.do
                 time_table_url = 'http://openAPI.seoul.go.kr:8088/'+key_num+'/json/SearchSTNTimeTableByIDService/1/300/'+sht_start_code+'/'+week_tag+'/'+up_down_tag
                 time_table_response = requests.get((time_table_url))
@@ -665,26 +679,26 @@ def home(request):
                 # 실시간 지하철 실시간 열차위치정보 http://data.seoul.go.kr/dataList/OA-12601/A/1/datasetView.do
 
                 # 호선 명 처리
-                if line == '01호선':
+                if sht_line == '01호선':
                     temp_line = '1호선'
-                elif line == '02호선':
+                elif sht_line == '02호선':
                     temp_line = '2호선'
-                elif line == '03호선':
+                elif sht_line == '03호선':
                     temp_line = '3호선'
-                elif line == '04호선':
+                elif sht_line == '04호선':
                     temp_line = '4호선'
-                elif line == '05호선':
+                elif sht_line == '05호선':
                     temp_line = '5호선'
-                elif line == '06호선':
+                elif sht_line == '06호선':
                     temp_line = '6호선'
-                elif line == '07호선':
+                elif sht_line == '07호선':
                     temp_line = '7호선'
-                elif line == '08호선':
+                elif sht_line == '08호선':
                     temp_line = '8호선'
-                elif line == '09호선':
+                elif sht_line == '09호선':
                     temp_line = '9호선'
                     
-#return render(request,'sht_path.html',{'real_time_position':real_time_position,'sht_joined_time_table_list':sht_joined_time_table_list,'trans_line3':trans_line3,'joined_path_station_list3':joined_path_station_list3,'after_trans_path_list3':after_trans_path_list3,'sht_path_trans_cnt':sht_path_trans_cnt,'joined_path_station_list2':joined_path_station_list2,'trans_line2':trans_line2,'trans_station2':trans_station2,'after_trans_path_list2':after_trans_path_list2,'trans_line':trans_line,'after_trans_path_list':after_trans_path_list,'joined_path_station_list':joined_path_station_list,'line_obj':line_obj,'line':line,'obj' : obj,'sht_path_msg':sht_path_msg,'path_time':path_time,'sht_path_list':sht_path_list,'path_obj':path_obj,'dest_obj':dest_obj })
+#return render(request,'sht_path.html',{'real_time_position':real_time_position,'sht_joined_time_table_list':sht_joined_time_table_list,'trans_line3':trans_line3,'joined_path_station_list3':joined_path_station_list3,'after_trans_path_list3':after_trans_path_list3,'sht_path_trans_cnt':sht_path_trans_cnt,'joined_path_station_list2':joined_path_station_list2,'trans_line2':trans_line2,'trans_station2':trans_station2,'after_trans_path_list2':after_trans_path_list2,'trans_line':trans_line,'after_trans_path_list':after_trans_path_list,'joined_path_station_list':joined_path_station_list,'line_obj':line_obj,'sht_line':sht_line,'obj' : obj,'sht_path_msg':sht_path_msg,'path_time':path_time,'sht_path_list':sht_path_list,'path_obj':path_obj,'dest_obj':dest_obj })
                     
             
                 #schedule.every(10).seconds.do(RealTimeFunc)
@@ -1099,7 +1113,7 @@ def home(request):
                         
                         '''
                         #서울교통공사 실시간 지하철 위치 정보 https://data.seoul.go.kr/dataList/OA-12601/A/1/datasetView.do
-                        realtime_lc_url = 'http://swopenAPI.seoul.go.kr/api/subway/'+key_num,'/json/realtimePosition/0/5/'+line
+                        realtime_lc_url = 'http://swopenAPI.seoul.go.kr/api/subway/'+key_num,'/json/realtimePosition/0/5/'+sht_line
                         realtime_lc_response = requests.get(realtime_lc_url)
                         realtime_lc_data = realtime_lc_response.text
                         realtime_lc_obj = json.loads(realtime_lc_data)
@@ -1123,7 +1137,7 @@ def home(request):
                 
                             
                         
-                return render(request,'flash.html',{'real_time_position':real_time_position,'sht_joined_time_table_list':sht_joined_time_table_list,'trans_line3':trans_line3,'joined_path_station_list3':joined_path_station_list3,'after_trans_path_list3':after_trans_path_list3,'sht_path_trans_cnt':sht_path_trans_cnt,'joined_path_station_list2':joined_path_station_list2,'trans_line2':trans_line2,'trans_station2':trans_station2,'after_trans_path_list2':after_trans_path_list2,'trans_line':trans_line,'after_trans_path_list':after_trans_path_list,'joined_path_station_list':joined_path_station_list,'line_obj':line_obj,'line':line,'obj' : obj,'sht_path_msg':sht_path_msg,'path_time':path_time,'sht_path_list':sht_path_list,'path_obj':path_obj,'dest_obj':dest_obj })
+                return render(request,'flash.html',{'real_time_position':real_time_position,'sht_joined_time_table_list':sht_joined_time_table_list,'trans_line3':trans_line3,'joined_path_station_list3':joined_path_station_list3,'after_trans_path_list3':after_trans_path_list3,'sht_path_trans_cnt':sht_path_trans_cnt,'joined_path_station_list2':joined_path_station_list2,'trans_line2':trans_line2,'trans_station2':trans_station2,'after_trans_path_list2':after_trans_path_list2,'trans_line':trans_line,'after_trans_path_list':after_trans_path_list,'joined_path_station_list':joined_path_station_list,'line_obj':line_obj,'sht_line':sht_line,'obj' : obj,'sht_path_msg':sht_path_msg,'path_time':path_time,'sht_path_list':sht_path_list,'path_obj':path_obj,'dest_obj':dest_obj })
                     
                             
                 
@@ -1630,7 +1644,7 @@ def home(request):
                 print(min_joined_station_code_list3)
                 
                 
-                return render(request,'min_flash.html',{'min_joined_time_table_list':min_joined_time_table_list,'trans_line3':trans_line3,'joined_path_station_list3':joined_path_station_list3,'after_trans_path_list3':after_trans_path_list3,'min_after_trans_path_list2':min_after_trans_path_list2,'min_joined_path_station_list2':min_joined_path_station_list2,'min_trans_station2':min_trans_station2,'min_trans_line2':min_trans_line2,'min_path_trans_cnt':min_path_trans_cnt,'sht_path_trans_cnt':sht_path_trans_cnt,'joined_path_station_list2':joined_path_station_list2,'trans_line2':trans_line2,'trans_station2':trans_station2,'after_trans_path_list2':after_trans_path_list2,'min_line':min_line,'min_trans_line':min_trans_line,'min_joined_path_station_list':min_joined_path_station_list,'min_after_trans_path_list':min_after_trans_path_list,'trans_line':trans_line,'after_trans_path_list':after_trans_path_list,'joined_path_station_list':joined_path_station_list,'line_obj':line_obj,'line':line,'min_min_path_time':min_min_path_time,'min_path_time':min_path_time,'obj' : obj,'min_path_list':min_path_list,'min_path_msg':min_path_msg,'sht_path_msg':sht_path_msg,'min_sht_path_time':min_sht_path_time,'path_time':path_time,'sht_path_list':sht_path_list,'path_obj':path_obj,'dest_obj':dest_obj })
+                return render(request,'min_flash.html',{'min_joined_time_table_list':min_joined_time_table_list,'trans_line3':trans_line3,'joined_path_station_list3':joined_path_station_list3,'after_trans_path_list3':after_trans_path_list3,'min_after_trans_path_list2':min_after_trans_path_list2,'min_joined_path_station_list2':min_joined_path_station_list2,'min_trans_station2':min_trans_station2,'min_trans_line2':min_trans_line2,'min_path_trans_cnt':min_path_trans_cnt,'sht_path_trans_cnt':sht_path_trans_cnt,'joined_path_station_list2':joined_path_station_list2,'trans_line2':trans_line2,'trans_station2':trans_station2,'after_trans_path_list2':after_trans_path_list2,'min_line':min_line,'min_trans_line':min_trans_line,'min_joined_path_station_list':min_joined_path_station_list,'min_after_trans_path_list':min_after_trans_path_list,'trans_line':trans_line,'after_trans_path_list':after_trans_path_list,'joined_path_station_list':joined_path_station_list,'line_obj':line_obj,'sht_line':sht_line,'min_min_path_time':min_min_path_time,'min_path_time':min_path_time,'obj' : obj,'min_path_list':min_path_list,'min_path_msg':min_path_msg,'sht_path_msg':sht_path_msg,'min_sht_path_time':min_sht_path_time,'path_time':path_time,'sht_path_list':sht_path_list,'path_obj':path_obj,'dest_obj':dest_obj })
 
 
 
@@ -1670,16 +1684,17 @@ def home(request):
             #except UnboundLocalError:
                 #print("UnboundLocalError")
             
-            #return render(request,'detail.html',{'time_table_obj':time_table_obj,'trans_line3':trans_line3,'joined_path_station_list3':joined_path_station_list3,'after_trans_path_list3':after_trans_path_list3,'min_after_trans_path_list2':min_after_trans_path_list2,'min_joined_path_station_list2':min_joined_path_station_list2,'min_trans_station2':min_trans_station2,'min_trans_line2':min_trans_line2,'min_path_trans_cnt':min_path_trans_cnt,'sht_path_trans_cnt':sht_path_trans_cnt,'joined_path_station_list2':joined_path_station_list2,'trans_line2':trans_line2,'trans_station2':trans_station2,'after_trans_path_list2':after_trans_path_list2,'min_line':min_line,'min_trans_line':min_trans_line,'min_joined_path_station_list':min_joined_path_station_list,'min_after_trans_path_list':min_after_trans_path_list,'trans_line':trans_line,'after_trans_path_list':after_trans_path_list,'joined_path_station_list':joined_path_station_list,'line_obj':line_obj,'line':line,'min_min_path_time':min_min_path_time,'min_path_time':min_path_time,'obj' : obj,'min_path_list':min_path_list,'min_path_msg':min_path_msg,'sht_path_msg':sht_path_msg,'min_sht_path_time':min_sht_path_time,'path_time':path_time,'sht_path_list':sht_path_list,'path_obj':path_obj,'dest_obj':dest_obj , 'finobj' : finobj})
+            #return render(request,'detail.html',{'time_table_obj':time_table_obj,'trans_line3':trans_line3,'joined_path_station_list3':joined_path_station_list3,'after_trans_path_list3':after_trans_path_list3,'min_after_trans_path_list2':min_after_trans_path_list2,'min_joined_path_station_list2':min_joined_path_station_list2,'min_trans_station2':min_trans_station2,'min_trans_line2':min_trans_line2,'min_path_trans_cnt':min_path_trans_cnt,'sht_path_trans_cnt':sht_path_trans_cnt,'joined_path_station_list2':joined_path_station_list2,'trans_line2':trans_line2,'trans_station2':trans_station2,'after_trans_path_list2':after_trans_path_list2,'min_line':min_line,'min_trans_line':min_trans_line,'min_joined_path_station_list':min_joined_path_station_list,'min_after_trans_path_list':min_after_trans_path_list,'trans_line':trans_line,'after_trans_path_list':after_trans_path_list,'joined_path_station_list':joined_path_station_list,'line_obj':line_obj,'sht_line':sht_line,'min_min_path_time':min_min_path_time,'min_path_time':min_path_time,'obj' : obj,'min_path_list':min_path_list,'min_path_msg':min_path_msg,'sht_path_msg':sht_path_msg,'min_sht_path_time':min_sht_path_time,'path_time':path_time,'sht_path_list':sht_path_list,'path_obj':path_obj,'dest_obj':dest_obj , 'finobj' : finobj})
 
     else:
         form = RouteForm()
         
         
-        print('get요청?')
+        print('홈에서 get요청?')
+        print(request.GET.get('data'))
 
         
-        #return render(request,'sht_path.html',{'real_time_position':real_time_position,'sht_joined_time_table_list':sht_joined_time_table_list,'trans_line3':trans_line3,'joined_path_station_list3':joined_path_station_list3,'after_trans_path_list3':after_trans_path_list3,'sht_path_trans_cnt':sht_path_trans_cnt,'joined_path_station_list2':joined_path_station_list2,'trans_line2':trans_line2,'trans_station2':trans_station2,'after_trans_path_list2':after_trans_path_list2,'trans_line':trans_line,'after_trans_path_list':after_trans_path_list,'joined_path_station_list':joined_path_station_list,'line_obj':line_obj,'line':line,'obj' : obj,'sht_path_msg':sht_path_msg,'path_time':path_time,'sht_path_list':sht_path_list,'path_obj':path_obj,'dest_obj':dest_obj })
+        #return render(request,'sht_path.html',{'real_time_position':real_time_position,'sht_joined_time_table_list':sht_joined_time_table_list,'trans_line3':trans_line3,'joined_path_station_list3':joined_path_station_list3,'after_trans_path_list3':after_trans_path_list3,'sht_path_trans_cnt':sht_path_trans_cnt,'joined_path_station_list2':joined_path_station_list2,'trans_line2':trans_line2,'trans_station2':trans_station2,'after_trans_path_list2':after_trans_path_list2,'trans_line':trans_line,'after_trans_path_list':after_trans_path_list,'joined_path_station_list':joined_path_station_list,'line_obj':line_obj,'sht_line':sht_line,'obj' : obj,'sht_path_msg':sht_path_msg,'path_time':path_time,'sht_path_list':sht_path_list,'path_obj':path_obj,'dest_obj':dest_obj })
 
     return render(request, 'home.html', {'form' : form})
 
@@ -1804,7 +1819,7 @@ def sht_detail(request):
 
         
 
-    return render(request,'sht_detail.html',{'real_time_line':real_time_line,'sht_real_path_list':sht_real_path_list,'real_time_position':real_time_position,'sht_joined_time_table_list':sht_joined_time_table_list,'trans_line3':trans_line3,'joined_path_station_list3':joined_path_station_list3,'after_trans_path_list3':after_trans_path_list3,'sht_path_trans_cnt':sht_path_trans_cnt,'joined_path_station_list2':joined_path_station_list2,'trans_line2':trans_line2,'trans_station2':trans_station2,'after_trans_path_list2':after_trans_path_list2,'trans_line':trans_line,'after_trans_path_list':after_trans_path_list,'joined_path_station_list':joined_path_station_list,'line_obj':line_obj,'line':line,'obj' : obj,'sht_path_msg':sht_path_msg,'path_time':path_time,'sht_path_list':sht_path_list,'path_obj':path_obj,'dest_obj':dest_obj })
+    return render(request,'sht_detail.html',{'real_time_line':real_time_line,'sht_real_path_list':sht_real_path_list,'real_time_position':real_time_position,'sht_joined_time_table_list':sht_joined_time_table_list,'trans_line3':trans_line3,'joined_path_station_list3':joined_path_station_list3,'after_trans_path_list3':after_trans_path_list3,'sht_path_trans_cnt':sht_path_trans_cnt,'joined_path_station_list2':joined_path_station_list2,'trans_line2':trans_line2,'trans_station2':trans_station2,'after_trans_path_list2':after_trans_path_list2,'trans_line':trans_line,'after_trans_path_list':after_trans_path_list,'joined_path_station_list':joined_path_station_list,'line_obj':line_obj,'sht_line':sht_line,'obj' : obj,'sht_path_msg':sht_path_msg,'path_time':path_time,'sht_path_list':sht_path_list,'path_obj':path_obj,'dest_obj':dest_obj })
 
 
 def sht(request):
@@ -1824,6 +1839,7 @@ def sht(request):
         global last_time
         global found
         global time_tag
+        global user_token
         arrive_tag = 0
         time_tag = 0
         left_tag = 0
@@ -1842,7 +1858,7 @@ def sht(request):
         #서울시 지하철 실시간 열차 위치정보 http://data.seoul.go.kr/dataList/OA-12601/A/1/datasetView.do
 
         # 선택 시간 받아오기 GET 요청
-        selected_time = request.GET.get('time_table')
+        selected_time = request.GET.get('time_drop_list')
         print('선택된 시간',selected_time)
         if selected_time == 'first':
             time_tag = 0
@@ -1868,7 +1884,7 @@ def sht(request):
         #print(real_time_obj)
         
         
-
+        print(sht_joined_train_num_list)
         try:
             for item in real_time_obj:
 
@@ -1947,8 +1963,8 @@ def sht(request):
                 found = sht_real_path_list.index(sht_path_list[0])
             except ValueError:
                 print('valueError')
-            #print(sht_real_path_list[found])
-            #print(sht_real_path_list[found-2])
+                found = 0
+
             if real_time_position == sht_real_path_list[found]:
                 left_tag = 1
             elif real_time_position == sht_real_path_list[found-1]:
@@ -1957,17 +1973,25 @@ def sht(request):
                 left_tag = 3
             elif real_time_position == sht_real_path_list[found-3]:
                 left_tag = 4
-            elif real_time_position == sht_real_path_list[-2]:
+            else:
+                print('출발 태그 예외')
+                left_tag = 99
+                
+            if real_time_position == sht_real_path_list[-2]:
                 arrive_tag = 1
+                send_notification(user_token , 'Notty 알림' , '목적지에 도착했습니다.')
                 print('도착역 도착')
             elif real_time_position == sht_real_path_list[-3]:
+                send_notification(user_token , 'Notty 알림' , '전 역에 도착했습니다. 내릴 준비 해주세요.')
                 arrive_tag = 2
                 print('도착역 전 역 도착')
             elif real_time_position == sht_real_path_list[-4]:
+                send_notification(user_token , 'Notty 알림' , '전전 역에 도착했습니다. 내릴 준비 해주세요.')
                 arrive_tag = 3
                 print('도착역 전전역 도착')
             else: 
                 print("도착 태그 예외")
+                
             #실시간 다음역 지정
             real_next_station = sht_real_path_list[1]
         else:
@@ -2017,7 +2041,7 @@ def real_min(request):
         #서울시 지하철 실시간 열차 위치정보 http://data.seoul.go.kr/dataList/OA-12601/A/1/datasetView.do
 
         # 선택 시간 받아오기 GET 요청
-        selected_time = request.GET.get('time_table')
+        selected_time = request.GET.get('time_drop_list')
         print('선택된 시간',selected_time)
         if selected_time == 'first':
             time_tag = 0
@@ -2119,8 +2143,8 @@ def real_min(request):
                 found = min_real_path_list.index(min_path_list[0])
             except ValueError:
                 print('valueError')
-            #print(min_real_path_list[found])
-            #print(min_real_path_list[found-2])
+                found = 0
+
             if real_time_position == min_real_path_list[found]:
                 left_tag = 1
             elif real_time_position == min_real_path_list[found-1]:
@@ -2129,7 +2153,11 @@ def real_min(request):
                 left_tag = 3
             elif real_time_position == min_real_path_list[found-3]:
                 left_tag = 4
-            elif real_time_position == min_real_path_list[-2]:
+            else:
+                print('출발 태그 예외')
+                left_tag = 99
+            
+            if real_time_position == min_real_path_list[-2]:
                 arrive_tag = 1
                 print('도착역 도착')
             elif real_time_position == min_real_path_list[-3]:
@@ -2151,6 +2179,8 @@ def real_min(request):
 
 
 def arrive(request):
+    
+
     return render(request, 'arrive.html')
 
 
@@ -2184,7 +2214,11 @@ def send_notification(registration_ids , message_title , message_desc):
 
 
 def send(request):
-    resgistration  = ['dV6cEZaPqESTIx6cnCYWCX:APA91bEX8KsH-E8k3BD5nhXuPOuul2kLwuAiV-dgnD3m86VRuLnAWDObNPzoO5wum6uo9NqMVKCeGkv787Rnu2wakCHQT80FB4biXOaO5Gxs7foHIc75R1SCx2zQa4qWQ3mnWYCFZZLG']
+    global user_token
+
+    resgistration  = [user_token]
+    
+    
     send_notification(resgistration , 'asdf' , 'qwer')
     return HttpResponse("sent")
 
