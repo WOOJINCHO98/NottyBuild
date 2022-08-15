@@ -2193,20 +2193,18 @@ def real_min(request):
                 print('도착역 도착')
 
             elif real_time_position == min_real_path_list[-3]:
+                arrive_tag = 2
+                print('도착역 전 역 도착') 
                 if notification_cnt == 1:
                     send_notification(resgistration , 'Notty 알림' , '전 역에 도착했습니다. 내릴 준비 해주세요.')
                     notification_cnt += 1
 
-                arrive_tag = 2
-                print('도착역 전 역 도착')
-
             elif real_time_position == min_real_path_list[-4] and notification_cnt == 0:
+                arrive_tag = 3
+                print('도착역 전전역 도착')
                 if  notification_cnt == 0:
                     send_notification(resgistration , 'Notty 알림' , '전전 역에 도착했습니다. 내릴 준비 해주세요.')
                     notification_cnt += 1
-
-                arrive_tag = 3
-                print('도착역 전전역 도착')
             else: 
                 print("도착 태그 예외")
             #실시간 다음역 지정
