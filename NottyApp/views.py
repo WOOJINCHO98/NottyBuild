@@ -2218,8 +2218,8 @@ def send_notification(registration_ids , message_title , message_desc):
         "notification" : {
             "body" : message_desc,
             "title" : message_title,
-            "image" : "https://i.ytimg.com/vi/m5WUPHRgdOA/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDwz-yjKEdwxvKjwMANGk5BedCOXQ",
-            "icon": "https://yt3.ggpht.com/ytc/AKedOLSMvoy4DeAVkMSAuiuaBdIGKC7a5Ib75bKzKO3jHg=s900-c-k-c0x00ffffff-no-rj",
+            "image" : "https://postfiles.pstatic.net/MjAyMjA4MTVfMzUg/MDAxNjYwNTM3MzEwOTM5.BkVe6qHbqMHrYRo_CNAXOxJq9xEAzpGprQxqU12DtO4g.JsKKyngEWtI8Uoax4vW1oa_rVJ97uqHDMPWPsdpThfkg.JPEG.jowoojin1998/hqdefault.jpg?type=w966",
+            "icon": "https://postfiles.pstatic.net/MjAyMjA4MTVfMTgg/MDAxNjYwNTM2OTM0NTk1.StVBx3ZNIBEj4T75vwUzWjkv_8dQJF5bZ-yEDAf0fy0g.9uqISPfVLKOE32x9uWzHyq9ffb2PE-vmvWff63ntuhAg.PNG.jowoojin1998/Group_1.png?type=w966",
             
         }
     }
