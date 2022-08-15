@@ -213,11 +213,19 @@ def home(request):
                 print('일요일임')
             
             
+            str_day = now.strftime('%Y%m%d')
             str_time = now.strftime('%H:%M:%S')
+            print(str_day)
             print(str_time)
             test_time = ('12:00:01')
             
+            holidate = holiday(now.year)
+            print(holidate)
             
+            for item in holidate:
+                if str_day == item:
+                    week_tag = '3'
+                    print('공휴일임')
             
             
             ######################################
@@ -2259,5 +2267,63 @@ def showFirebaseJS(request):
          '    };' \
          '    return self.registration.showNotification(payload.notification.title,notificationOption);' \
          '});'
+         
+def showFirebaseJS2(request):
+    data='importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js");' \
+         'importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js"); ' \
+         'var firebaseConfig = {' \
+         '        apiKey: "AIzaSyB7kDt6u_8oVS_IjV_dYq8GmthV8x9n3kU",' \
+         '        authDomain: "notty-34ee7.firebaseapp.com",' \
+         '        databaseURL: "https://notty-34ee7.firebaseio.com",' \
+         '        projectId: "notty-34ee7",' \
+         '        storageBucket: "notty-34ee7.appspot.com",' \
+         '        messagingSenderId: "260740644068",' \
+         '        appId: "1:260740644068:web:2ede7cab29eae48e9740f1",' \
+         '        measurementId: "G-3VT1R1RFGL"' \
+         ' };' \
+         'firebase.initializeApp(firebaseConfig);' \
+         'const messaging=firebase.messaging();' \
+         'messaging.onMessage(function (payload) {' \
+         '    console.log(payload);' \
+         '    const notification=JSON.parse(payload);' \
+         '    const notificationOption={' \
+         '        body:notification.body,' \
+         '        icon:notification.icon' \
+         '    };' \
+         '    return self.registration.showNotification(payload.notification.title,notificationOption);' \
+         '});'
 
     return HttpResponse(data,content_type="text/javascript")
+
+
+
+def holiday(today_year):
+    
+    #https://www.data.go.kr/data/15012690/openapi.do
+    
+    key = 'oTsloDJ6xmHymJiItQxmn1GEp2HiiX%2B8fA%2BH6PRKbCUp3XWPNEAViCpeWOir0YPCRpFHH3XQ6i6PlYwNdEg4dQ%3D%3D'
+    url = 'http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo?_type=json&numOfRows=50&solYear=' + str(today_year) + '&ServiceKey=' + str(key)
+    response = requests.get(url)
+    if response.status_code == 200:
+        holidays_resdata = response.text
+        holiday_obj = json.loads(holidays_resdata)
+    holiday_obj = holiday_obj['response']
+    holiday_obj = holiday_obj['body']
+    holiday_obj = holiday_obj['items']
+    holiday_obj = holiday_obj['item']
+   
+    holiday_list = []
+    for item in holiday_obj:
+        holiday_list += str(item.get('locdate'))
+        holiday_list += ','
+    joined_holiday_list = " ".join(holiday_list)
+    joined_holiday_list = joined_holiday_list.replace(" ","")
+    joined_holiday_list = joined_holiday_list.split(',')
+    joined_holiday_list = [v for v in joined_holiday_list if v]
+    
+    holidate = joined_holiday_list
+    
+
+    return holidate
+
+            
