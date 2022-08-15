@@ -118,6 +118,7 @@ min_joined_time_table_list =''
 user_token=''
 resgistration = []
 notification_cnt = 0
+found_cnt = 0
 
 # Create your views here.
 def home(request):
@@ -1853,6 +1854,7 @@ def sht(request):
         global time_tag
         global user_token
         global resgistration
+        global found_cnt
         arrive_tag = 0
         time_tag = 0
         left_tag = 0
@@ -1925,61 +1927,63 @@ def sht(request):
         print(destword)
         
         
-        if real_time_position != destword:
         
         
-            #현재 역 다음 역 찾기.
-            #지하철 경로 조회 서비스 https://devming.tistory.com/214 |http://swopenAPI.seoul.go.kr/api/subway/인증Key값/요청데이터형식/OpenAPI 이름(서비스명)/요청 데이터 행 시작번호/요청 데이터 행 끝번호/출발역명/도착역명
-            
+        #현재 역 다음 역 찾기.
+        #지하철 경로 조회 서비스 https://devming.tistory.com/214 |http://swopenAPI.seoul.go.kr/api/subway/인증Key값/요청데이터형식/OpenAPI 이름(서비스명)/요청 데이터 행 시작번호/요청 데이터 행 끝번호/출발역명/도착역명
+        
 
+        
+        path_api_url = 'http://swopenAPI.seoul.go.kr/api/subway/'+key_num+'/json/shortestRoute/0/10/'+real_time_position+'/'+destword
+        path_response = requests.get(path_api_url)
+        path_resdata = path_response.text
+        path_obj = json.loads(path_resdata)
+        try:
+            path_obj = path_obj['shortestRouteList']
+        except KeyError:
+            print("keyerror")
+            send_notification(resgistration , 'Notty 알림' , '목적지에 도착했습니다.')
+            return render(request,'arrive.html',{'left_tag':left_tag,'last_time':last_time,'arrive_tag':arrive_tag,'real_next_station':real_next_station,'real_time_line':real_time_line,'sht_joined_time_table_list':sht_joined_time_table_list,'real_time_position':real_time_position,'destword':destword})
             
-            path_api_url = 'http://swopenAPI.seoul.go.kr/api/subway/'+key_num+'/json/shortestRoute/0/10/'+real_time_position+'/'+destword
-            path_response = requests.get(path_api_url)
-            path_resdata = path_response.text
-            path_obj = json.loads(path_resdata)
-            try:
-                path_obj = path_obj['shortestRouteList']
-            except KeyError:
-                print("keyerror")
-                return render(request,'sht.html',{'left_tag':left_tag,'last_time':last_time,'arrive_tag':arrive_tag,'real_next_station':real_next_station,'real_time_line':real_time_line,'sht_joined_time_table_list':sht_joined_time_table_list,'real_time_position':real_time_position,'destword':destword})
+        #최단 시간 찾기
+        path_time = [9999,9999,9999,9999,9999,9999,9999,9999,9999,9999]
+        
+        i=0
+        try:
+            for time_set in path_obj:
+                path_time[i] = int(time_set.get('shtTravelTm'))
+                i=i+1
+        except AttributeError:
+            print("AttributeError")
+        min_sht_path_time = min(path_time)
                 
-            #최단 시간 찾기
-            path_time = [9999,9999,9999,9999,9999,9999,9999,9999,9999,9999]
-            
-            i=0
-            try:
-                for time_set in path_obj:
-                    path_time[i] = int(time_set.get('shtTravelTm'))
-                    i=i+1
-            except AttributeError:
-                print("AttributeError")
-            min_sht_path_time = min(path_time)
-                 
-            try:
-                for item in path_obj:
-                    sht_real_path_list = item.get('shtStatnNm')
-                    #sht_path_msg = item.get('shtTravelMsg') 실시간 기반 소요 시간 환승 횟수 메시지
-                    #sht_path_trans_cnt = item.get('shtTransferCnt') 실시간 기반 환승 횟수
-                    #sht_path_time = item.get('shtTravelTm') 실시간 기반 소요 시간
-                    if min_sht_path_time == int(item.get('shtTravelTm')):
-                        break
-            except AttributeError:
-                print('AttributeError')   
-            print(sht_real_path_list)     
-            
-            try:
-                sht_real_path_list = sht_real_path_list.replace(" ","")
-                sht_real_path_list = sht_real_path_list.split(',')        
-            except AttributeError:
-                print('Attribute Error')
-            try: 
-                found = sht_real_path_list.index(sht_path_list[0])
-            except ValueError:
-                print('valueError')
-                found = 0
+        try:
+            for item in path_obj:
+                sht_real_path_list = item.get('shtStatnNm')
+                #sht_path_msg = item.get('shtTravelMsg') 실시간 기반 소요 시간 환승 횟수 메시지
+                #sht_path_trans_cnt = item.get('shtTransferCnt') 실시간 기반 환승 횟수
+                #sht_path_time = item.get('shtTravelTm') 실시간 기반 소요 시간
+                if min_sht_path_time == int(item.get('shtTravelTm')):
+                    break
+        except AttributeError:
+            print('AttributeError')   
+        print(sht_real_path_list)     
+        
+        try:
+            sht_real_path_list = sht_real_path_list.replace(" ","")
+            sht_real_path_list = sht_real_path_list.split(',')        
+        except AttributeError:
+            print('Attribute Error')
+        try: 
+            found = sht_real_path_list.index(sht_path_list[0])
+        except ValueError:
+            print('valueError')
+            found = 0
 
+        if found_cnt == 0:
             if real_time_position == sht_real_path_list[found]:
                 left_tag = 1
+                found_cnt = 1
             elif real_time_position == sht_real_path_list[found-1]:
                 left_tag = 2
             elif real_time_position == sht_real_path_list[found-2]:
@@ -1989,40 +1993,51 @@ def sht(request):
             else:
                 print('출발 태그 예외')
                 left_tag = 99
-            
+        else:
+            print('출발 태그 예외')
+            left_tag = 99
+
+
             global notification_cnt
             resgistration  = [user_token]
+            
+            print(found)
             print(sht_real_path_list)
             print(real_time_position)
-            if real_time_position == sht_real_path_list[-2] and notification_cnt == 2:
+
+            print('tag')
+            print(left_tag)
+            print(arrive_tag)
+            print(notification_cnt)
+            if real_time_position == sht_real_path_list[-2]:
                 arrive_tag = 1
-                send_notification(resgistration , 'Notty 알림' , '목적지에 도착했습니다.')
+                if notification_cnt == 2:
+                    send_notification(resgistration , 'Notty 알림' , '목적지에 도착했습니다.')
                 print('도착역 도착')
 
-            elif real_time_position == sht_real_path_list[-3] and notification_cnt == 1:
-                send_notification(resgistration , 'Notty 알림' , '전 역에 도착했습니다. 내릴 준비 해주세요.')
+            elif real_time_position == sht_real_path_list[-3]:
                 arrive_tag = 2
-                print('도착역 전 역 도착')
-                notification_cnt += 1
+                print('도착역 전 역 도착') 
+                if notification_cnt == 1:
+                    send_notification(resgistration , 'Notty 알림' , '전 역에 도착했습니다. 내릴 준비 해주세요.')
+                    notification_cnt += 1
 
-            elif real_time_position == sht_real_path_list[-4] and notification_cnt == 0:
-                send_notification(resgistration , 'Notty 알림' , '전전 역에 도착했습니다. 내릴 준비 해주세요.')
+            elif real_time_position == sht_real_path_list[-4]:
                 arrive_tag = 3
-                notification_cnt += 1
                 print('도착역 전전역 도착')
+                if  notification_cnt == 0:
+                    send_notification(resgistration , 'Notty 알림' , '전전 역에 도착했습니다. 내릴 준비 해주세요.')
+                    notification_cnt += 1
             else: 
                 print("도착 태그 예외")
                 
-            if arrive_tag == 1:
-                print('도착')
-                return render(request,'arrive.html')
-            
-            #실시간 다음역 지정
-            real_next_station = sht_real_path_list[1]
-        else:
+        if arrive_tag == 1:
             print('도착')
             return render(request,'arrive.html')
-    
+        
+        #실시간 다음역 지정
+        real_next_station = sht_real_path_list[1]
+
     return render(request,'sht.html',{'left_tag':left_tag,'last_time':last_time,'arrive_tag':arrive_tag,'real_next_station':real_next_station,'real_time_line':real_time_line,'sht_joined_time_table_list':sht_joined_time_table_list,'real_time_position':real_time_position,'destword':destword})
 
 
@@ -2051,6 +2066,7 @@ def real_min(request):
         arrive_tag = 0
         time_tag = 0
         left_tag = 0
+        global found_cnt
         print('get요청? in min')
         
         
@@ -2116,62 +2132,65 @@ def real_min(request):
         print(destword)
         
         
-        if real_time_position != destword:
         
+    
+        #현재 역 다음 역 찾기.
+        #지하철 경로 조회 서비스 https://devming.tistory.com/214 |http://swopenAPI.seoul.go.kr/api/subway/인증Key값/요청데이터형식/OpenAPI 이름(서비스명)/요청 데이터 행 시작번호/요청 데이터 행 끝번호/출발역명/도착역명
         
-            #현재 역 다음 역 찾기.
-            #지하철 경로 조회 서비스 https://devming.tistory.com/214 |http://swopenAPI.seoul.go.kr/api/subway/인증Key값/요청데이터형식/OpenAPI 이름(서비스명)/요청 데이터 행 시작번호/요청 데이터 행 끝번호/출발역명/도착역명
-            
 
+        
+        path_api_url = 'http://swopenAPI.seoul.go.kr/api/subway/'+key_num+'/json/shortestRoute/0/10/'+real_time_position+'/'+destword
+        path_response = requests.get(path_api_url)
+        path_resdata = path_response.text
+        path_obj = json.loads(path_resdata)
+        try:
+            path_obj = path_obj['shortestRouteList']
+        except KeyError:
+            print("keyerror")
+            send_notification(resgistration , 'Notty 알림' , '목적지에 도착했습니다.')
+            return render(request,'arrive.html',{'left_tag':left_tag,'last_time':last_time,'arrive_tag':arrive_tag,'real_next_station':real_next_station,'real_time_line':real_time_line,'min_joined_time_table_list':min_joined_time_table_list,'real_time_position':real_time_position,'destword':destword})
             
-            path_api_url = 'http://swopenAPI.seoul.go.kr/api/subway/'+key_num+'/json/shortestRoute/0/10/'+real_time_position+'/'+destword
-            path_response = requests.get(path_api_url)
-            path_resdata = path_response.text
-            path_obj = json.loads(path_resdata)
-            try:
-                path_obj = path_obj['shortestRouteList']
-            except KeyError:
-                print("keyerror")
-                return render(request,'real_min.html',{'left_tag':left_tag,'last_time':last_time,'arrive_tag':arrive_tag,'real_next_station':real_next_station,'real_time_line':real_time_line,'min_joined_time_table_list':min_joined_time_table_list,'real_time_position':real_time_position,'destword':destword})
-                
-            #최단 시간 찾기
-            path_time = [9999,9999,9999,9999,9999,9999,9999,9999,9999,9999]
+        #최단 시간 찾기
+        path_time = [9999,9999,9999,9999,9999,9999,9999,9999,9999,9999]
+        
+        i=0
+        try:
+            for time_set in path_obj:
+                path_time[i] = int(time_set.get('minTravelTm'))
+                i=i+1
+        except AttributeError:
+            print("AttributeError")
+        min_min_path_time = min(path_time)
             
-            i=0
-            try:
-                for time_set in path_obj:
-                    path_time[i] = int(time_set.get('minTravelTm'))
-                    i=i+1
-            except AttributeError:
-                print("AttributeError")
-            min_min_path_time = min(path_time)
-                
-            try:
-                for item in path_obj:
-                    min_real_path_list = item.get('minStatnNm')
-                    #min_path_msg = item.get('minTravelMsg') 실시간 기반 소요 시간 환승 횟수 메시지
-                    #min_path_trans_cnt = item.get('minTransferCnt') 실시간 기반 환승 횟수
-                    #min_path_time = item.get('minTravelTm') 실시간 기반 소요 시간
-                    if min_min_path_time == int(item.get('minTravelTm')):
-                        break
-            except AttributeError:
-                print('AttributeError')   
-            print(min_real_path_list)     
-            
-            try:
-                min_real_path_list = min_real_path_list.replace(" ","")
-                min_real_path_list = min_real_path_list.split(',')        
-            except AttributeError:
-                print('Attribute Error')
-            try: 
-                print(min_path_time)
-                found = min_real_path_list.index(min_path_list[0])
-            except ValueError:
-                print('valueError')
-                found = 0
+        try:
+            for item in path_obj:
+                min_real_path_list = item.get('minStatnNm')
+                #min_path_msg = item.get('minTravelMsg') 실시간 기반 소요 시간 환승 횟수 메시지
+                #min_path_trans_cnt = item.get('minTransferCnt') 실시간 기반 환승 횟수
+                #min_path_time = item.get('minTravelTm') 실시간 기반 소요 시간
+                if min_min_path_time == int(item.get('minTravelTm')):
+                    break
+        except AttributeError:
+            print('AttributeError')   
+        print(min_real_path_list)     
+        
+        try:
+            min_real_path_list = min_real_path_list.replace(" ","")
+            min_real_path_list = min_real_path_list.split(',')        
+        except AttributeError:
+            print('Attribute Error')
+        try: 
+            print(min_path_time)
+            found = min_real_path_list.index(min_path_list[0])
+        except ValueError:
+            print('valueError')
+            found = 0
 
+      
+        if found_cnt == 0:
             if real_time_position == min_real_path_list[found]:
                 left_tag = 1
+                found_cnt = 1
             elif real_time_position == min_real_path_list[found-1]:
                 left_tag = 2
             elif real_time_position == min_real_path_list[found-2]:
@@ -2181,7 +2200,11 @@ def real_min(request):
             else:
                 print('출발 태그 예외')
                 left_tag = 99
-            
+        else:
+            print('출발 태그 예외')
+            left_tag = 99
+
+        
             global notification_cnt
             resgistration  = [user_token]
             print(min_real_path_list)
@@ -2199,7 +2222,7 @@ def real_min(request):
                     send_notification(resgistration , 'Notty 알림' , '전 역에 도착했습니다. 내릴 준비 해주세요.')
                     notification_cnt += 1
 
-            elif real_time_position == min_real_path_list[-4] and notification_cnt == 0:
+            elif real_time_position == min_real_path_list[-4]:
                 arrive_tag = 3
                 print('도착역 전전역 도착')
                 if  notification_cnt == 0:
@@ -2209,9 +2232,6 @@ def real_min(request):
                 print("도착 태그 예외")
             #실시간 다음역 지정
             real_next_station = min_real_path_list[1]
-        else:
-            print('도착')
-            return render(request,'arrive.html')
 
     return render(request,'real_min.html',{'left_tag':left_tag,'last_time':last_time,'arrive_tag':arrive_tag,'real_next_station':real_next_station,'real_time_line':real_time_line,'min_joined_time_table_list':min_joined_time_table_list,'real_time_position':real_time_position,'destword':destword})
 
