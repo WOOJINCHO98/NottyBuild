@@ -2186,19 +2186,22 @@ def real_min(request):
             resgistration  = [user_token]
             print(min_real_path_list)
             print(real_time_position)
-            if real_time_position == min_real_path_list[-2] and notification_cnt == 2:
+            if real_time_position == min_real_path_list[-2]:
                 arrive_tag = 1
-                send_notification(resgistration , 'Notty 알림' , '목적지에 도착했습니다.')
+                if notification_cnt == 2:
+                    send_notification(resgistration , 'Notty 알림' , '목적지에 도착했습니다.')
                 print('도착역 도착')
 
-            elif real_time_position == min_real_path_list[-3] and notification_cnt == 1:
-                send_notification(resgistration , 'Notty 알림' , '전 역에 도착했습니다. 내릴 준비 해주세요.')
+            elif real_time_position == min_real_path_list[-3]:
+                if notification_cnt == 1:
+                    send_notification(resgistration , 'Notty 알림' , '전 역에 도착했습니다. 내릴 준비 해주세요.')
                 arrive_tag = 2
                 print('도착역 전 역 도착')
                 notification_cnt += 1
 
             elif real_time_position == min_real_path_list[-4] and notification_cnt == 0:
-                send_notification(resgistration , 'Notty 알림' , '전전 역에 도착했습니다. 내릴 준비 해주세요.')
+                if  notification_cnt == 0:
+                    send_notification(resgistration , 'Notty 알림' , '전전 역에 도착했습니다. 내릴 준비 해주세요.')
                 arrive_tag = 3
                 notification_cnt += 1
                 print('도착역 전전역 도착')
