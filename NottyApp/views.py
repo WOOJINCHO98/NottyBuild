@@ -117,6 +117,8 @@ min_path_list = ''
 min_joined_time_table_list =''
 user_token=''
 resgistration = []
+notification_cnt = 0
+
 # Create your views here.
 def home(request):
     global destword
@@ -182,7 +184,8 @@ def home(request):
             global min_joined_time_table_list
             global min_path_trans_cnt
             global min_path_msg
-            
+            global notification_cnt
+            notification_cnt = 0
             print("--->>>",request.POST.get('answers'))
             
             answer = request.POST.get('answers')
@@ -1986,22 +1989,26 @@ def sht(request):
             else:
                 print('출발 태그 예외')
                 left_tag = 99
-                
-            resgistration  = [user_token]
             
+            global notification_cnt
+            resgistration  = [user_token]
             print(sht_real_path_list)
             print(real_time_position)
-            if real_time_position == sht_real_path_list[-2]:
+            if real_time_position == sht_real_path_list[-2] and notification_cnt == 2:
                 arrive_tag = 1
                 send_notification(resgistration , 'Notty 알림' , '목적지에 도착했습니다.')
                 print('도착역 도착')
-            elif real_time_position == sht_real_path_list[-3]:
+
+            elif real_time_position == sht_real_path_list[-3] and notification_cnt == 1:
                 send_notification(resgistration , 'Notty 알림' , '전 역에 도착했습니다. 내릴 준비 해주세요.')
                 arrive_tag = 2
                 print('도착역 전 역 도착')
-            elif real_time_position == sht_real_path_list[-4]:
+                notification_cnt += 1
+
+            elif real_time_position == sht_real_path_list[-4] and notification_cnt == 0:
                 send_notification(resgistration , 'Notty 알림' , '전전 역에 도착했습니다. 내릴 준비 해주세요.')
                 arrive_tag = 3
+                notification_cnt += 1
                 print('도착역 전전역 도착')
             else: 
                 print("도착 태그 예외")
@@ -2175,14 +2182,25 @@ def real_min(request):
                 print('출발 태그 예외')
                 left_tag = 99
             
-            if real_time_position == min_real_path_list[-2]:
+            global notification_cnt
+            resgistration  = [user_token]
+            print(min_real_path_list)
+            print(real_time_position)
+            if real_time_position == min_real_path_list[-2] and notification_cnt == 2:
                 arrive_tag = 1
+                send_notification(resgistration , 'Notty 알림' , '목적지에 도착했습니다.')
                 print('도착역 도착')
-            elif real_time_position == min_real_path_list[-3]:
+
+            elif real_time_position == min_real_path_list[-3] and notification_cnt == 1:
+                send_notification(resgistration , 'Notty 알림' , '전 역에 도착했습니다. 내릴 준비 해주세요.')
                 arrive_tag = 2
                 print('도착역 전 역 도착')
-            elif real_time_position == min_real_path_list[-4]:
+                notification_cnt += 1
+
+            elif real_time_position == min_real_path_list[-4] and notification_cnt == 0:
+                send_notification(resgistration , 'Notty 알림' , '전전 역에 도착했습니다. 내릴 준비 해주세요.')
                 arrive_tag = 3
+                notification_cnt += 1
                 print('도착역 전전역 도착')
             else: 
                 print("도착 태그 예외")
@@ -2218,8 +2236,8 @@ def send_notification(registration_ids , message_title , message_desc):
         "notification" : {
             "body" : message_desc,
             "title" : message_title,
-            "image" : "https://postfiles.pstatic.net/MjAyMjA4MTVfMzUg/MDAxNjYwNTM3MzEwOTM5.BkVe6qHbqMHrYRo_CNAXOxJq9xEAzpGprQxqU12DtO4g.JsKKyngEWtI8Uoax4vW1oa_rVJ97uqHDMPWPsdpThfkg.JPEG.jowoojin1998/hqdefault.jpg?type=w966",
-            "icon": "https://postfiles.pstatic.net/MjAyMjA4MTVfMTgg/MDAxNjYwNTM2OTM0NTk1.StVBx3ZNIBEj4T75vwUzWjkv_8dQJF5bZ-yEDAf0fy0g.9uqISPfVLKOE32x9uWzHyq9ffb2PE-vmvWff63ntuhAg.PNG.jowoojin1998/Group_1.png?type=w966",
+            "image" : "https://i.postimg.cc/mrbjrC8z/hqdefault.jpg",
+            "icon": "https://i.postimg.cc/jqJFm69t/Group-1.png",
             
         }
     }
