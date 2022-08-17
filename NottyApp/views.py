@@ -2019,21 +2019,21 @@ def sht(request):
             if real_time_position == sht_real_path_list[-2]:
                 arrive_tag = 1
                 if notification_cnt == 2:
-                    send_notification(resgistration , 'Notty 알림' , '목적지에 도착했습니다.')
+                    send_notification(resgistration , 'Notty 알림' , '목적지에 도착했습니다. 내릴 준비 해주세요!')
                 print('도착역 도착')
 
             elif real_time_position == sht_real_path_list[-3]:
                 arrive_tag = 2
                 print('도착역 전 역 도착') 
                 if notification_cnt == 1:
-                    send_notification(resgistration , 'Notty 알림' , '전 역에 도착했습니다. 내릴 준비 해주세요.')
+                    send_notification(resgistration , 'Notty 알림' , '도착역까지 한 정거장 남았습니다. 내릴 준비 해주세요!')
                     notification_cnt += 1
 
             elif real_time_position == sht_real_path_list[-4]:
                 arrive_tag = 3
                 print('도착역 전전역 도착')
                 if  notification_cnt == 0:
-                    send_notification(resgistration , 'Notty 알림' , '전전 역에 도착했습니다. 내릴 준비 해주세요.')
+                    send_notification(resgistration , 'Notty 알림' , '도착역까지 두 정거장 남았습니다. 내릴 준비 해주세요!')
                     notification_cnt += 1
             else: 
                 print("도착 태그 예외")
@@ -2219,21 +2219,21 @@ def real_min(request):
             if real_time_position == min_real_path_list[-2]:
                 arrive_tag = 1
                 if notification_cnt == 2:
-                    send_notification(resgistration , 'Notty 알림' , '목적지에 도착했습니다.')
+                    send_notification(resgistration , 'Notty 알림' , '목적지에 도착했습니다. 내려주세요!')
                 print('도착역 도착')
 
             elif real_time_position == min_real_path_list[-3]:
                 arrive_tag = 2
                 print('도착역 전 역 도착') 
                 if notification_cnt == 1:
-                    send_notification(resgistration , 'Notty 알림' , '전 역에 도착했습니다. 내릴 준비 해주세요.')
+                    send_notification(resgistration , 'Notty 알림' , '도착역까지 한 정거장 남았습니다. 내릴 준비 해주세요!')
                     notification_cnt += 1
 
             elif real_time_position == min_real_path_list[-4]:
                 arrive_tag = 3
                 print('도착역 전전역 도착')
                 if  notification_cnt == 0:
-                    send_notification(resgistration , 'Notty 알림' , '전전 역에 도착했습니다. 내릴 준비 해주세요.')
+                    send_notification(resgistration , 'Notty 알림' , '도착역까지 두 정거장 남았습니다. 내릴 준비 해주세요!')
                     notification_cnt += 1
             else: 
                 print("도착 태그 예외")
