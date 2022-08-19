@@ -122,7 +122,7 @@ USE_TZ = True
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
-STATIC_ROOT = os.path.join(ROOT_DIR, 'static_root')
+STATIC_ROOT = os.path.join(ROOT_DIR, '.static_root')
 STATICFILES_FINDERS = (
 
 "django.contrib.staticfiles.finders.FileSystemFinder",
