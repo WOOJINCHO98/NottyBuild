@@ -17,7 +17,7 @@ from django.http import HttpResponse
 
 
 key_num = '6f4d796a726a6f77353772777a4e48'
-path_key = '66794970516a6f7737317a58794163'
+path_key = '646f7a76646a6f7733317842746455'
 
 
 '''
