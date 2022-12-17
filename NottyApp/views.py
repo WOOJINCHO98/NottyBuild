@@ -146,7 +146,7 @@ def home(request):
             rt = Route()
             rt.start = request.POST['start']
             rt.fin = request.POST['fin']
-            rt.save()
+            #rt.save()
             
             global dest_obj
             global sht_joined_time_table_list
