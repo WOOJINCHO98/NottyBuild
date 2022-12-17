@@ -22,11 +22,14 @@ STATIC_DIR = os.path.join(BASE_DIR,'static')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-fxb%1jv4j$fk+*h$0)kiw%)tj=v9-*t5yxm+t7p9))1(f=yzvh'
-
+#SECRET_BASE_FILE = os.path.join(ROOT_DIR, 'secrets.json')
+ROOT_DIR = os.path.dirname(BASE_DIR)
+SECRET_BASE_FILE = os.path.join(ROOT_DIR, 'blogapi/secrets.json')
+secrets = json.loads(open(SECRET_BASE_FILE).read())
+for key, value in secrets.items():
+    setattr(sys.modules[__name__], key, value)
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = (os.environ.get('DEBUG', 'True') != 'False')
 
 ALLOWED_HOSTS = ['*']
 
@@ -134,3 +137,10 @@ STATICFILES_FINDERS = (
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+AWS_ACCESS_KEY_ID = 'AKIATKPN7RBSGBUOBXOQ'
+AWS_SECRET_ACCESS_KEY ='django-insecure-fxb%1jv4j$fk+*h$0)kiw%)tj=v9-*t5yxm+t7p9))1(f=yzvh'
+AWS_STORAGE_BUCKET_NAME = 'aws10thcho'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_REGION_NAME = 'ap-northeast-2'
