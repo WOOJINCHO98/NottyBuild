@@ -27,7 +27,7 @@ STATIC_DIR = os.path.join(BASE_DIR,'static')
 #ROOT_DIR = BASE_DIR.parent
 #SECRET_BASE_FILE = os.path.join(ROOT_DIR, 'secrets.json')
 ROOT_DIR = os.path.dirname(BASE_DIR)
-SECRET_BASE_FILE = os.path.join(ROOT_DIR, 'notty/secrets.json')
+SECRET_BASE_FILE = os.path.join(ROOT_DIR, 'Notty/secrets.json')
 secrets = json.loads(open(SECRET_BASE_FILE).read())
 for key, value in secrets.items():
     setattr(sys.modules[__name__], key, value)
