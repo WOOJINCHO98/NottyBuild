@@ -11,23 +11,32 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os, json, sys
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ROOT_DIR = os.path.dirname(BASE_DIR)
-STATIC_URL = '/static/'
-STATIC_DIR = os.path.join(BASE_DIR,'static')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent
+
+STATIC_URL = '/static/'
+STATIC_DIR = os.path.join(BASE_DIR,'static')
+#ROOT_DIR = BASE_DIR.parent
 #SECRET_BASE_FILE = os.path.join(ROOT_DIR, 'secrets.json')
 ROOT_DIR = os.path.dirname(BASE_DIR)
-SECRET_BASE_FILE = os.path.join(ROOT_DIR, 'blogapi/secrets.json')
+SECRET_BASE_FILE = os.path.join(ROOT_DIR, 'notty/secrets.json')
 secrets = json.loads(open(SECRET_BASE_FILE).read())
 for key, value in secrets.items():
     setattr(sys.modules[__name__], key, value)
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
+
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get('DEBUG', 'True') != 'False')
 
