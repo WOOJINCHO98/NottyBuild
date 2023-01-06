@@ -29,3 +29,5 @@ kakao 로컬
 
 
 FirebaseCloudMesseging 으로 알림 구현
+
+AWS EC2, screen 을 이용하여 24시간, 365일 작동됨
