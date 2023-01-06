@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -167,29 +169,34 @@
     <a href='/favorite/'>❤</a> -->
 
 
-        <div class="page2_icons">
-      <div class="none">
+
+
+    <img src="{% static 'app/metro.png' %}" alt="metro" width="100%" class="metro_img"/>
+
+
+    <div class="page2_icons">
+      <div class="circle">
+        <div class="none">
           <i class="fa-solid fa-x "></i>
+        </div>
       </div>
-      <div class="notty_logo">Notty</div>
-      <a href='/setting/'><i class="fa-solid fa-bars"></i></a>
-      <!-- <i class="fa-solid fa-bars"></i> -->
+      <div class="circle">
+        <a href='/setting/' class="setting">
+          <i class="fa-solid fa-bars"></i>
+        </a>
+      </div>
     </div>
+    <div class="notty_logo">
+      <p class="notty_text">
+        Notty
+      </p>  
+    </div>
+
 
     <div class="margin">
       <div class="form">
         <form action="" method="POST">
             {% csrf_token %}
-            <div class="select1">
-              <div class="select2">
-                <input type="radio" name="answers" id="answer1" value ='sht_path'>
-                  <label for="answer1">최단 시간</label>
-              </div>
-              <div class="select2">
-                <input type="radio" name="answers" id="answer2" value ='min_path'>
-                  <label for="answer2">최소 환승</label>
-              </div>
-            </div>
 
             <table class="station">
               <!-- {{ form.as_table }} -->
@@ -199,6 +206,17 @@
 
             <input type="hidden" name="user_token" id="data" value="">
             <input class="search" type="submit" onclick="string_process();" value="검색">
+
+            <div class="select1">
+              <div class="select2">
+                <input type="radio" name="answers" id="answer1" value ='sht_path'>
+                  <label for="answer1" class="label_sht">최단 시간</label>
+              </div>
+              <div class="select2">
+                <input type="radio" name="answers" id="answer2" value ='min_path'>
+                  <label for="answer2" class="label_min">최소 환승</label>
+              </div>
+            </div>
         </form>
 
           <div class="side1">
@@ -216,7 +234,6 @@
       </div>
     </div>
 
-    <div class="ad">광고</div>
     <style>
       @font-face {
           font-family: 'MICEGothic Bold';
@@ -239,7 +256,7 @@
           padding: 0;
           width: 100vw;
           height: 100vh;
-          background-color: #9F9F9F;
+          background-color: #F9F9F9;
           font-family: 'MICEGothic';
       }
 
@@ -252,33 +269,75 @@
       a:focus { text-decoration: none; }
       a:hover, a:active { text-decoration: none; }
 
+
+      .metro_img {
+          position: absolute;
+          width: 100%;
+          z-index: -1;
+
+
+      }
+
       .page2_icons {
-          padding: 15rem;
+          margin-left: 15rem;
+          margin-right: 15rem;
+          
+          padding: 20rem;
           font-size: 32rem;
           display: flex;
           justify-content: space-between;
+          position: relative;
           /* color: inherit; */
       }
 
+      .circle{
+        width: 50rem;
+        height: 50rem;
+        border-radius: 50%;
+        background-color: #fff;
+        margin-top: 15rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow:0 2px 20px -5px black;
+    }
+
       .none {
-          color: #9F9F9F;
+        font-size: 20rem;
+        color: #000;
+        position: relative;
+        margin: 20px;
+      }
+      .setting { 
+        font-size: 20rem;
+        color: #000;
+        position: relative;
+        margin: 20px;
+      }
+      .notty_logo {
+        font-size: 40rem;
+        font-weight: bold;
+        color: #fff;
+
+        font-family: 'MICEGothic Bold';
+        text-shadow: 2px 4px 2px gray;
+
+        padding: 0;
+
+        display: flex;
+        justify-content: left;
+        margin-left: 30rem;
+        margin-top: 20rem;
+
+        position: relative;
       }
 
-      .notty_logo {
-          margin-top: 8px;
-          padding: 0;
-          font-size: 32rem;
-          font-weight: bold;
-          display: flex;
-          justify-content: center;
-          font-family: 'MICEGothic Bold';
-      }
 
       .margin {
           position: absolute;
           height: fit-content;
           left:0; right:0; margin-left:auto; margin-right:auto;
-          top: 0; bottom:0; margin-top:auto; margin-bottom:auto;
+          top: 0; bottom:0; margin-top:53%; margin-bottom:auto;
       }
 
 
@@ -292,35 +351,60 @@
           text-align: center;
       }
 
+
+
       .select1 {
           border-radius: 6px;
+          width: 90vw;
+          height: 64rem;
 
           display: flex;
           flex-direction: row;
           justify-content: space-between;
-          margin-bottom: 20px;
-          margin-right: 11px;
-      }
+          margin-left: auto; 
+          margin-right: auto;
+          margin-bottom: 20rem;
+          margin-top 90rem;
+        }
 
+
+      label {
+        color: #fff;
+        margin-top: 10rem;
+      }
       .select2 {
-          border-radius: 6px;
+          border-radius: 13px;
+          height: 40rem;
 
           font-size: 15rem;
-          background-color: #BBBBBB;
+          background-color: #ebebeb;
           width: 42vw;
-          line-height: 30rem;
-          height: 32rem;
-          line-height: 32rem;
-          margin-left: 11px;
+          line-height: 40rem;
+          padding: auto;
+          margin: auto;
+
+          box-shadow:0 2px 10px -5px black;
+
 
       }
 
+
+      .label_sht, .label_min {
+        font-size: 15rem;
+        color: #000;
+        margin: auto;
+        padding: auto;
+      }
+
+
+
       /* .station {
-        background-color: #BBBBBB;
+        background-color: #ebebeb;
         font-size: 20rem;
         line-height: 80rem;
         height: 80rem;
         margin-bottom: 20px;
+        color: #fff;
         width: 90vw;
         padding: 0px 10px;
       } */
@@ -336,17 +420,21 @@
 
       .inputText1, .inputText2 {
         flex-direction: column;
-        border-radius: 6px;
+        border-radius: 20px;
         margin: 0 auto;
-
-        background-color: #BBBBBB;
+        
+        background-color: #ebebeb;
         border: 0;
         width: 88vw;
         height: 60rem;
         line-height: 60rem;
+        color: #fff;
         font-size: 25rem;
-        margin-bottom: 17rem;
+        margin-bottom: 10rem;
         text-align: center;
+
+        box-shadow:0 2px 10px -5px black;
+
       }
 
       
@@ -358,27 +446,30 @@
         font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
         border-radius: 6px;
         border: none;
-      
-        background: #6E6D70;
+        
+        background: #5D27B6;
         box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), inset 0px 0.5px 0.5px rgba(255, 255, 255, 0.5), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.12);
-        color: #DFDEDF;
+        background: linear-gradient( to right, #F53803, #F5D020 );
+        
         user-select: none;
         -webkit-user-select: none;
         touch-action: manipulation;
-
+        color: #fff;
         font-size: 30rem; 
-        line-height: 60rem;
+        line-height: 53rem;
         height: 65rem;
-        margin-bottom: 25px;
         margin: 0 auto;
+        padding: auto;
         width: 90vw;
+
+        box-shadow: 0 0 10px 1px gray;
       }
       .search:focus {
         box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
         outline: 0;
       }
       .search-2 {
-        background-color: #646464;
+        background-color: #845EC2;
         font-size: 30rem; 
         line-height: 60rem;
         height: 65rem;
@@ -398,21 +489,12 @@
 
       .chan {
         margin-top: 18px;
-        background-color: #9F9F9F;
+        background-color: #F9F9F9;
         border: #9F9F9F;
         font-size: 14rem;
         font-family: 'MICEGothic';
       }
 
-      .ad {
-          position: fixed;
-          bottom: 0;
-          background-color: rgb(49, 49, 49);
-          font-size: 40rem;
-          text-align: center;
-          width: 100vw;
-          height: 65rem;
-      }
 
     </style>
     
