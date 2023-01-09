@@ -5,12 +5,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
     <title>Notty</title>
-    <div>
-        <a href='/' style="font-size:40px">X</a>
-        <h1 style="display:inline">Notty</h1>
-        <a href='/setting/' style="font-size:40px">=</a>
-    </div>
+    
+    
+    
+    <img src="{% static 'app/metro.png' %}" alt="metro" width="100%" class="metro_img"/>
+
+
+
     <meta http-equiv="refresh" content= "0.6 ; url=/sht">
     <!--<link rel="stylesheet" href="{% static 'css/flash.css' %}">-->
 
@@ -21,36 +26,52 @@
         <div class="spin"></div>
     </div>
       <style>
-        html{
-            background:#78807b;
-          }
+
+        body::-webkit-scrollbar {
+          display:none /* Chrome , Safari , Opera */
+          overflow: hidden;
+
+        }
+
+        .metro_img {
+          position: absolute;
+          width: 100%;
+          z-index: -1;
+          left: 0;
+          top: -60%;
+          -webkit-animation-name: slideUp;
+          -webkit-animation-duration: 0.8s;
+          -webkit-animation-timing-function: linear;
+        }
+
+                  
+        @keyframes slideUp {
           
-          .square{
-            border:0;
-            width:80px;
-            padding:0px;
-            margin-top: 90px;
-            margin-left: calc(50% - 40px);
-            margin-left: -webkit-calc(50% - 40px);
-            margin-left: -moz-calc(50% - 40px);
-            background:#78807b;
-          }
-          
-          .spin {
-            height: 70px;
-            width: 70px;
-            border-radius: 50%;
-            border:dashed 5px rgb(37, 37, 37);
-            -webkit-animation-name: spin;
-            -webkit-animation-duration: 1.5s;
-            -webkit-animation-iteration-count: infinite;
-            -webkit-animation-timing-function: linear;
-          }
-          
-          @-webkit-keyframes spin {
-            from   {  -webkit-transform: rotate(0deg); }
-            to   {  -webkit-transform: rotate(360deg); }
-          }
+          0%   { top: 0%; }
+          25%   { top: -40%;}
+          60%   { top: -50%;}
+          100%   {  top: -60%; }
+        } 
+
+
+        .notty_logo {
+          font-size: 40rem;
+          font-weight: bold;
+          color: #fff;
+
+          font-family: 'MICEGothic Bold';
+          text-shadow: 2px 4px 2px gray;
+
+          padding: 0;
+
+          display: flex;
+          justify-content: left;
+          margin-left: 30rem;
+          margin-top: 20rem;
+
+          position: relative;
+        }
+
       </style>
 </body>
 </html>

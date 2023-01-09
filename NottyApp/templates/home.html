@@ -21,6 +21,18 @@
 
      
     <script>
+
+      function reverse(){
+      temp1 = document.getElementById("startID").value
+      temp2 = document.getElementById("finishID").value
+      document.getElementById("startID").value=temp2
+      document.getElementById("finishID").value=temp1
+      }
+
+      window.onload = function(){
+        answer1.checked = true;
+
+      };
       // Import the functions you need from the SDKs you need
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
@@ -85,100 +97,14 @@
   </head>
 <body>
 
-<!--
-    <br>
-    <input type="text" value='출발역'>
-    <br>
-    <input type="text" value='도착역'>
-    <br><br>
-    <a href='{% url 'detail' %}'>검색
--->
-<!--
-    <form action="{% url 'detail' %}" method="POST">
-        {% csrf_token %}
-
-        <div>
-          <input type="text" name="start" id="start" value='출발역'>
-        </div>
-        <div>
-          <input type="text" name="fin" id="fin" value='도착역'>
-        </div>
-        <br>
-        <table>
-            {{ form.as_table }}
-          </table>
-          <input type="submit" value="검색">
-      </form>
--->
-
-
-<!--모델폼 해보기
-      <form action="{% url 'detail' %}" method="POST">
-        {% csrf_token %}
-        <table>
-          {{ form.as_table }}
-        </table>
-        <input type="submit" value="제출">
-      </form>
--->
-
-
-
-
-    <!-- <form action=""  method="POST">
-        {% csrf_token %}
-        <input type="radio" name="answers" id="answer1" value ='sht_path'>
-          <label for="answer1"><p>최단 시간</p></label>
-        <input type="radio" name="answers" id="answer2" value ='min_path'>
-          <label for="answer2"><p>최소 환승</p></label>
-        
-        <table>
-
-          {{ form.as_table }} 주석처리
-
-          <input type="text" class="inputText1" id="startID" name="start" value="" placeholder="출발역" onfocus="this.placeholder=''" onblur="this.placeholder='출발역'">
-          <br>
-          <input type="text" class="inputText2" id="finishID" name="fin" value="" placeholder="도착역" onfocus="this.placeholder=''" onblur="this.placeholder='도착역'">
-          <br>
-        </table>
-        
-        <input type="hidden" name="user_token" id="data" value="">
-
-        <input type="submit" onclick="string_process();" value="검색">
-        <br>
-        <br>
-
-
-        <br><br>
-
-    </form>
-
-    <button onclick="reverse();">경로 바꾸기</button>
-    <script>
-        function reverse(){
-          temp1 = document.getElementById("startID").value
-          temp2 = document.getElementById("finishID").value
-          document.getElementById("startID").value=temp2
-          document.getElementById("finishID").value=temp1
-        }
-
-
-    </script>
-<br>
-
-    <a href='/favorite/'>❤</a> -->
-
-
-
-
     <img src="{% static 'app/metro.png' %}" alt="metro" width="100%" class="metro_img"/>
 
 
     <div class="page2_icons">
       <div class="circle">
-        <div class="none">
-          <i class="fa-solid fa-x "></i>
-        </div>
+        <a href='/favorite/' class="favorite">
+          🖤
+        </a>
       </div>
       <div class="circle">
         <a href='/setting/' class="setting">
@@ -201,11 +127,12 @@
             <table class="station">
               <!-- {{ form.as_table }} -->
               <input type="text" class="inputText1" id="startID" name="start" value="" placeholder="출발역" onfocus="this.placeholder=''" onblur="this.placeholder='출발역'">
+                
               <input type="text" class="inputText2" id="finishID" name="fin" value="" placeholder="도착역" onfocus="this.placeholder=''" onblur="this.placeholder='도착역'">
             </table>
 
             <input type="hidden" name="user_token" id="data" value="">
-            <input class="search" type="submit" onclick="string_process();" value="검색">
+            <input class="search" type="submit"  value="검색">
 
             <div class="select1">
               <div class="select2">
@@ -219,17 +146,8 @@
             </div>
         </form>
 
-          <div class="side1">
-                <button class="chan" onclick="reverse();">경로 바꾸기</button>
-                <script>
-                  function reverse(){
-                  temp1 = document.getElementById("startID").value
-                  temp2 = document.getElementById("finishID").value
-                  document.getElementById("startID").value=temp2
-                  document.getElementById("finishID").value=temp1
-                  }
-                </script>
-            <a class="side1" href='/favorite/'>즐겨찾는 경로</a>
+        <button class="chan" onclick="reverse();">⇄</button>
+
         </div>
       </div>
     </div>
@@ -301,19 +219,19 @@
         align-items: center;
         box-shadow:0 2px 20px -5px black;
     }
-
+    .setting { 
+      font-size: 20rem;
+      color: #000;
+      position: relative;
+      margin: 20px;
+    }
       .none {
         font-size: 20rem;
         color: #000;
         position: relative;
         margin: 20px;
       }
-      .setting { 
-        font-size: 20rem;
-        color: #000;
-        position: relative;
-        margin: 20px;
-      }
+
       .notty_logo {
         font-size: 40rem;
         font-weight: bold;
@@ -350,6 +268,7 @@
           display: flex;
           flex-direction: column;
           text-align: center;
+          position: absolute;
       }
 
 
@@ -425,7 +344,8 @@
         flex-direction: column;
         border-radius: 20px;
         margin: 0 auto;
-        
+        margin-bottom: 25rem;
+
         background-color: #ebebeb;
         border: 0;
         width: 88vw;
@@ -433,7 +353,6 @@
         line-height: 60rem;
         color: #000;
         font-size: 25rem;
-        margin-bottom: 10rem;
         text-align: center;
 
         position: relative;
@@ -486,21 +405,27 @@
         width: 90vw;
       }
 
-      .side1 {
-        display: flex;
-        flex-direction: row;
-        font-size: 14rem;
-        /* color: #F9F9F9; */
-        justify-content: space-around;
-        margin-top: 18px;
-      }
-
       .chan {
-        margin-top: 18px;
-        background-color: #F9F9F9;
-        border: #9F9F9F;
-        font-size: 14rem;
+
+        width: 12vw;
+        height: 12vw;
+
+        padding: 0;
+        display: flex;
+        background-color: #EB6200;
+
+        border: none;
+        border-radius: 20px;
+        padding: 8px;
+        font-size: 30rem;
         font-family: 'MICEGothic';
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        top: -274rem;
+        left: -13rem;
+        z-index: 1;
+        box-shadow:0 2px 10px -5px black;
       }
 
 

@@ -13,138 +13,22 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
-    <style>
-        /* h1 {
-    font-size: 40px;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
-    margin-bottom:200px;
-    font-family: 'MICEGothic Bold';
-
-} */
-
-@font-face {
-          font-family: 'MICEGothic Bold';
-          src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff2') format('woff2');
-          font-weight: 700;
-          font-style: normal;
-        }
-    @font-face {
-        font-family: 'MICEGothic';
-        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic.woff2') format('woff2');
-        font-weight: 400;
-        font-style: normal;
-    }
-    
-html {font-size: 1px;}
-body {font-size: 1rem;}
-
-a {
-    text-decoration: none;
-    color: #ffffff;
-    }
-
-a:visited { text-decoration: none; }
-a:hover { text-decoration: none; }
-a:focus { text-decoration: none; }
-a:hover, a:active { text-decoration: none; }
-
-
-body {
-    font-family: 'MICEGothic';
-    width: 100vw;
-    height: 100vh;
-    background-color:#9F9F9F;
-    padding: 0;
-    margin: 0;
-}
-
-.page2_icons {
-    padding: 15rem;
-    font-size: 32rem;
-    display: flex;
-    justify-content: space-between;
-}
-
-.none {
-    /* color: #9F9F9F; */
-}
-
-.notty_logo {
-    margin-top: 8px;
-    padding: 0;
-    font-size: 32px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    font-family: 'MICEGothic Bold';
-}
-
-/* 상세정보 박스 */
-#detailImformation {
-    text-align: center;
-    width: 100vw;
-    height: 60px;
-    margin-left: auto; margin-right: auto;
-    font-weight: 590;
-    padding: 0;
-    margin: 0 auto;
-    line-height: 60px;
-    font-size: 16rem;
-}
-
-/* 현재 역 이름 박스 */
-#subwayName {
-    text-align: center;
-    width: 100vw;
-    height: 150px;
-    margin-left: auto; margin-right: auto;
-    font-weight: bold;
-    font-size: 36px;
-    padding: 0;
-    margin: 0 auto;
-    line-height: 150px;
-}
-
-/* 다음 역 박스 */
-#nextSubway {
-    text-align: center;
-    width: 100vw;
-    height: 60px;
-    margin-left: auto; margin-right: auto;
-    font-weight: 590;
-    padding: 0;
-    margin: 0 auto;
-    line-height: 60px;
-    font-size: 13px;
-}
-
-#nowStationbox {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-#time_selected {
-    font-size: 16px;
-    text-align: center;
-    background-color: #8b4513;
-    color: #ffffff;
-}
-
-    </style>
 </head>
 <body style="background-color: #9F9F9F;">
     <!-- <h1>Notty</h1> -->
+
+
     <div class="page2_icons">
-        <div class="none">
-            <a href='/'><i class="fa-solid fa-x "></i></a>
-            
+        <div class="circle">
+            <a href='/' class="none"><i class="fa-solid fa-x"></i></a>
         </div>
-        <div class="notty_logo">Notty</div>
-        <a href='/setting/'><i class="fa-solid fa-bars"></i></a>
+        <div class="circle">
+          <a href='/setting/' class="setting">
+            <i class="fa-solid fa-bars"></i>
+          </a>
+        </div>
+      </div>
+      
     <div id="nowStationbox">
         
         <form action="/sht/" method="GET">
@@ -236,5 +120,162 @@ body {
         9호선
         {% else %}
         {% endif %} -->
+
+
+
+
+
+    <style>
+        /* h1 {
+    font-size: 40px;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    margin-bottom:200px;
+    font-family: 'MICEGothic Bold';
+
+} */
+
+@font-face {
+          font-family: 'MICEGothic Bold';
+          src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff2') format('woff2');
+          font-weight: 700;
+          font-style: normal;
+        }
+    @font-face {
+        font-family: 'MICEGothic';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+    }
+    
+html {font-size: 1px;}
+body {font-size: 1rem;}
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+    }
+
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:focus { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
+
+
+body {
+    font-family: 'MICEGothic';
+    width: 100vw;
+    height: 100vh;
+    background-color:#9F9F9F;
+    padding: 0;
+    margin: 0;
+}
+
+
+.page2_icons {
+    margin-left: 15rem;
+    margin-right: 15rem;
+    
+    padding: 20rem;
+    font-size: 32rem;
+    display: flex;
+    justify-content: space-between;
+    /* color: inherit; */
+}
+.setting { 
+    font-size: 20rem;
+    color: #000;
+    position: relative;
+    margin: 20px;
+  }
+
+.circle{
+width: 50rem;
+height: 50rem;
+border-radius: 50%;
+background-color: #fff;
+margin-top: 15rem;
+display: flex;
+justify-content: center;
+align-items: center;
+box-shadow:0 2px 20px -5px black;
+}
+
+
+.none {
+    font-size: 20rem;
+    color: #000;
+    margin: 20px;
+  }
+
+
+.notty_logo {
+    margin-top: 8px;
+    padding: 0;
+    font-size: 32px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    font-family: 'MICEGothic Bold';
+}
+
+/* 상세정보 박스 */
+#detailImformation {
+    text-align: center;
+    width: 100vw;
+    height: 60px;
+    margin-left: auto; margin-right: auto;
+    font-weight: 590;
+    padding: 0;
+    margin: 0 auto;
+    line-height: 60px;
+    font-size: 16rem;
+}
+
+/* 현재 역 이름 박스 */
+#subwayName {
+    text-align: center;
+    width: 100vw;
+    height: 150px;
+    margin-left: auto; margin-right: auto;
+    font-weight: bold;
+    font-size: 36px;
+    padding: 0;
+    margin: 0 auto;
+    line-height: 150px;
+}
+
+/* 다음 역 박스 */
+#nextSubway {
+    text-align: center;
+    width: 100vw;
+    height: 60px;
+    margin-left: auto; margin-right: auto;
+    font-weight: 590;
+    padding: 0;
+    margin: 0 auto;
+    line-height: 60px;
+    font-size: 13px;
+}
+
+#nowStationbox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#time_selected {
+    font-size: 16px;
+    text-align: center;
+    background-color: #8b4513;
+    color: #ffffff;
+}
+
+    </style>
+        
+
+        
 </body>
 </html>
