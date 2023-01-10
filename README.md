@@ -12,23 +12,27 @@
 # [기획 및 발표자료](https://docs.google.com/presentation/d/1KigGH1A2YDeBQ756GHt1K5aXSITO3-qs/edit?usp=sharing&ouid=109482985170827362384&rtpof=true&sd=true)
 <p align="center">
 
+***
+  #### + 2023-01-10 실시간 지하철 위치 디자인 수정
+  ![IMG_1491](https://user-images.githubusercontent.com/88936783/211473364-daf314ea-a0e6-443c-96f4-a8b3747ee458.PNG)
+
 
   ***
-  #### ++++ 2023-01-09 메인페이지 디자인 수정, 로딩 애니메이션 변경
+  #### + 2023-01-09 메인페이지 디자인 수정, 로딩 애니메이션 변경
 
 
-https://user-images.githubusercontent.com/88936783/211335236-e8a78c64-e408-4341-9b35-130bb06c1618.mov
+  https://user-images.githubusercontent.com/88936783/211335236-e8a78c64-e408-4341-9b35-130bb06c1618.mov
 
 
 
 
-  #### ++++ 2023-01-06 기존의 CloudType 배포에서, AWS EC2 배포로 변경함.
-  #### ++++ 2023-01-06 screen 을 이용하여 SSH가 종료 되더라도, 24/7 구동
-  #### ++++ 2023-01-07 메인페이지 디자인 수정
+  #### + 2023-01-06 기존의 CloudType 배포에서, AWS EC2 배포로 변경함.
+  #### + 2023-01-06 screen 을 이용하여 SSH가 종료 되더라도, 24/7 구동
+  #### + 2023-01-07 메인페이지 디자인 수정
   <img alt="수정한 메인페이지" src="https://user-images.githubusercontent.com/88936783/211076729-774cbd42-3690-45bb-bcea-2bae0904a7be.png" width="40%" height="50%">
   
   ***
-  #### 2022-08 해커톤 결과
+  #### 2022-08-20 해커톤 결과
   
   <img alt="스크린샷 2023-01-03 오후 7 13 55" src="https://user-images.githubusercontent.com/88936783/210337842-366e716b-10e6-4590-af38-ab9445c8a6f4.png" width="40%" height="50%">
   <img alt="스크린샷 2023-01-03 오후 7 14 04" src="https://user-images.githubusercontent.com/88936783/210337857-5907202b-0972-4d3e-9a9d-dbb951506003.png" width="40%" height="50%">
