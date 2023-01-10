@@ -13,9 +13,11 @@
 <p align="center">
 
 ***
-  #### + 2023-01-10 실시간 지하철 위치 디자인 수정
+  #### + 2023-01-10 실시간 지하철 위치 디자인 수정, 해당 지하철 호선에 맞게 색상 변경
 
   <img src="https://user-images.githubusercontent.com/88936783/211473364-daf314ea-a0e6-443c-96f4-a8b3747ee458.PNG" width="40%" height="50%">
+  
+  <img src="https://user-images.githubusercontent.com/88936783/211474808-13eb8be7-02d2-49dc-a0dc-5b00ac5a575a.PNG" width="40%" height="50%">
   
 
   ***
