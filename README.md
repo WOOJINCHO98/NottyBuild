@@ -18,7 +18,7 @@
 
 
 
-<img alt="스크린샷 2023-01-10 오후 11 51 40" src="https://user-images.githubusercontent.com/88936783/211583567-aa74f5f1-6b6b-4354-b09c-277096b122f0.png"width="40%" height="50%">
+<img src="https://user-images.githubusercontent.com/88936783/211583567-aa74f5f1-6b6b-4354-b09c-277096b122f0.png" width="40%" height="50%">
 
 ***
   #### + 2023-01-10 실시간 지하철 위치 디자인 수정, 해당 지하철 호선에 맞게 색상 변경
