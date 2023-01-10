@@ -12,6 +12,14 @@
 # [기획 및 발표자료](https://docs.google.com/presentation/d/1KigGH1A2YDeBQ756GHt1K5aXSITO3-qs/edit?usp=sharing&ouid=109482985170827362384&rtpof=true&sd=true)
 <p align="center">
 
+
+***
+  #### + 2023-01-11 도착 완료 화면 수정
+
+
+
+<img alt="스크린샷 2023-01-10 오후 11 51 40" src="https://user-images.githubusercontent.com/88936783/211583567-aa74f5f1-6b6b-4354-b09c-277096b122f0.png"width="40%" height="50%">
+
 ***
   #### + 2023-01-10 실시간 지하철 위치 디자인 수정, 해당 지하철 호선에 맞게 색상 변경
 
@@ -21,7 +29,7 @@
   
 
   ***
-  #### + 2023-01-09 메인페이지 디자인 수정, 로딩 애니메이션 변경
+  #### + 2023-01-09 메인페이지 디자인 수정, 로딩 애니메이션 추가
 
 
   https://user-images.githubusercontent.com/88936783/211335236-e8a78c64-e408-4341-9b35-130bb06c1618.mov
