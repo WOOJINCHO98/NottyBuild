@@ -14,7 +14,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
 </head>
-<body style="background-color: #9F9F9F;">
+<body style="background-color: #F9F9F9;">
+
     <!-- <h1>Notty</h1> -->
 
 
@@ -29,11 +30,20 @@
         </div>
       </div>
       
+
+
+
+
     <div id="nowStationbox">
         
         <form action="/sht/" method="GET">
             <!-- <select name="time_drop_list" id="time_selected" onchange="this.form.submit()" style="border-radius:0; width:206px; height:60px; float:left; margin:0;"> -->
-            <select name="time_drop_list" id="time_selected" onchange="this.form.submit()" style="border-radius:0; width:50vw; height:60px; float:left; margin:0;">
+            <select name="time_drop_list" id="time_selected" onchange="this.form.submit()" 
+            style="border-radius: 10px 0 0 0; 
+            width: 50%;
+            float:left; 
+            height: 60px;
+            margin: auto;">
 
                 <option value="">시간 선택</option>
                 <option value="first">{{sht_joined_time_table_list.0}}</option>
@@ -49,13 +59,13 @@
         <div
                     id="detailImformation"
                     style="
-                        background-color: #8b4513;
-                        color: #ffffff;
-                        /* width: 206px; */
-                        width: 50vw;
-                        height: 60px;
                         float: left;
-                        margin: 0;
+                        width: 50%;
+
+                        margin: auto;
+                        border: none;
+                        outline: none;
+                        border-radius: 0 10px 0 0;
                         /* font-size: 16px; */
                     "
                 >
@@ -72,54 +82,202 @@
         
         <p
             id="nextSubway"
-            style="background-color: #8b4513; color: #ffffff"
+            class="nextSubway"
                 >
             
                 다음 역 : {{real_next_station}}
             {% if  left_tag == 4%}
                 
-                출발지 3역 전 입니다.
+            | 출발지 3역 전 입니다.
             {% elif  left_tag == 3%}
                 
-                출발지 2역 전 입니다.
+            | 출발지 2역 전 입니다.
             {% elif left_tag == 2 %}
                 
-                출발지 전 역 입니다.
+            | 출발지 전 역 입니다.
             {% elif left_tag == 1 %}
                 
-                출발역 입니다.
+            | 출발역 입니다.
             {% elif arrive_tag == 3 %}
                 
-                목적지 도착 2역 전 입니다.
+            | 목적지 도착 2역 전 입니다.
             {% elif arrive_tag == 2 %}
                 
-                목적지 도착 전 역 입니다.
+            | 목적지 도착 전 역 입니다.
             {% else %}
 
             {% endif %}
+
+
         </p>
     </div>
+
+
         <!--현재 호선 구분하는 코드 입니다.-->
-        <!-- {% if real_time_line == '1호선'%}
-        1호선
-        {% elif real_time_line == '2호선'%}
-        2호선
-        {% elif real_time_line == '3호선'%}
-        3호선
-        {% elif real_time_line == '4호선'%}
-        4호선
-        {% elif real_time_line == '5호선'%}
-        5호선
-        {% elif real_time_line == '6호선'%}
-        6호선
-        {% elif real_time_line == '7호선'%}
-        7호선
-        {% elif real_time_line == '8호선'%}
-        8호선
-        {% elif real_time_line == '9호선'%}
-        9호선
+        {% if real_time_line == "1호선"%}
+        <style>
+            #time_selected{
+                background-color: #2741c4;
+                color: #fff;
+            }
+            #detailImformation{
+                background-color: #2741c4;
+                color: #fff;
+            }
+            #nextSubway{
+                background-color: #2741c4;
+                color: #fff;
+            }
+        </style>       
+
+        {% elif real_time_line == "2호선"%}
+        
+        <style>
+            #time_selected{
+                background-color: #27c441;
+                color: #fff;
+            }
+            #detailImformation{
+                background-color: #27c441;
+                color: #fff;
+            }
+            #nextSubway{
+                background-color: #27c441;
+                color: #fff;
+            }
+        </style>       
+
+        {% elif real_time_line == "3호선"%}
+        
+        <style>
+            #time_selected{
+                background-color: #EB6200;
+                color: #fff;
+            }
+            #detailImformation{
+                background-color: #EB6200;
+                color: #fff;
+            }
+            #nextSubway{
+                background-color: #EB6200;
+                color: #fff;
+            }
+        </style>       
+
+        {% elif real_time_line == "4호선"%}
+        
+        <style>
+            #time_selected{
+                background-color: #039FDB;
+                color: #fff;
+            }
+            #detailImformation{
+                background-color: #039FDB;
+                color: #fff;
+            }
+            #nextSubway{
+                background-color: #039FDB;
+                color: #fff;
+            }
+        </style>       
+        {% elif real_time_line == "5호선"%}
+        
+        <style>
+            #time_selected{
+                background-color: #936AA7;
+                color: #fff;
+            }
+            #detailImformation{
+                background-color: #936AA7;
+                color: #fff;
+            }
+            #nextSubway{
+                background-color: #936AA7;
+                color: #fff;
+            }
+        </style>       
+        {% elif real_time_line == "6호선"%}
+        
+        <style>
+            #time_selected{
+                background-color: #C7792F;
+                color: #fff;
+            }
+            #detailImformation{
+                background-color: #C7792F;
+                color: #fff;
+            }
+            #nextSubway{
+                background-color: #C7792F;
+                color: #fff;
+            }
+        </style>       
+        {% elif real_time_line == "7호선"%}
+        <style>
+            #time_selected{
+                background-color: #6F7904;
+                color: #fff;
+            }
+            #detailImformation{
+                background-color: #6F7904;
+                color: #fff;
+            }
+            #nextSubway{
+                background-color: #6F7904;
+                color: #fff;
+            }
+        </style>       
+        
+        {% elif real_time_line == "8호선"%}
+        
+        <style>
+            #time_selected{
+                background-color: #DE186A;
+                color: #fff;
+            }
+            #detailImformation{
+                background-color: #DE186A;
+                color: #fff;
+            }
+            #nextSubway{
+                background-color: #DE186A;
+                color: #fff;
+            }
+        </style>       
+        {% elif real_time_line == "9호선"%}
+        
+        <style>
+            #time_selected{
+                background-color: #B3A68A;
+                color: #fff;
+            }
+            #detailImformation{
+                background-color: #B3A68A;
+                color: #fff;
+            }
+            #nextSubway{
+                background-color: #B3A68A;
+                color: #fff;
+            }
+        </style>       
         {% else %}
-        {% endif %} -->
+
+        <style>
+            #time_selected{
+                background-color: #ebebeb;
+                color: #fff;
+            }
+            #detailImformation{
+                background-color: #ebebeb;
+                color: #fff;
+            }
+            #nextSubway{
+                background-color: #ebebeb;
+                color: #fff;
+            }
+        </style>       
+
+        {% endif %}
 
 
 
@@ -127,151 +285,142 @@
 
     <style>
         /* h1 {
-    font-size: 40px;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
-    margin-bottom:200px;
-    font-family: 'MICEGothic Bold';
+            font-size: 40px;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            margin-bottom:200px;
+            font-family: 'MICEGothic Bold';
 
-} */
+        } */
 
-@font-face {
-          font-family: 'MICEGothic Bold';
-          src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff2') format('woff2');
-          font-weight: 700;
-          font-style: normal;
+        @font-face {
+                font-family: 'MICEGothic Bold';
+                src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff2') format('woff2');
+                font-weight: 700;
+                font-style: normal;
+                }
+            @font-face {
+                font-family: 'MICEGothic';
+                src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic.woff2') format('woff2');
+                font-weight: 400;
+                font-style: normal;
+            }
+            
+        html {font-size: 1px;}
+        body {font-size: 1rem;}
+
+        a {
+            text-decoration: none;
+            color: #ffffff;
+            }
+
+        a:visited { text-decoration: none; }
+        a:hover { text-decoration: none; }
+        a:focus { text-decoration: none; }
+        a:hover, a:active { text-decoration: none; }
+
+
+        body {
+            font-family: 'MICEGothic';
+            width: 100vw;
+            height: 100vh;
+            background-color:#9F9F9F;
+            padding: 0;
+            margin: 0;
         }
-    @font-face {
-        font-family: 'MICEGothic';
-        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic.woff2') format('woff2');
-        font-weight: 400;
-        font-style: normal;
-    }
-    
-html {font-size: 1px;}
-body {font-size: 1rem;}
-
-a {
-    text-decoration: none;
-    color: #ffffff;
-    }
-
-a:visited { text-decoration: none; }
-a:hover { text-decoration: none; }
-a:focus { text-decoration: none; }
-a:hover, a:active { text-decoration: none; }
 
 
-body {
-    font-family: 'MICEGothic';
-    width: 100vw;
-    height: 100vh;
-    background-color:#9F9F9F;
-    padding: 0;
-    margin: 0;
-}
+        .page2_icons {
+            margin-left: 15rem;
+            margin-right: 15rem;
+            
+            padding: 20rem;
+            font-size: 32rem;
+            display: flex;
+            justify-content: space-between;
+            /* color: inherit; */
+        }
+        .setting { 
+            font-size: 20rem;
+            color: #000;
+            position: relative;
+            margin: 20px;
+        }
+
+        .circle{
+        width: 50rem;
+        height: 50rem;
+        border-radius: 50%;
+        background-color: #fff;
+        margin-top: 15rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow:0 2px 20px -5px black;
+        }
 
 
-.page2_icons {
-    margin-left: 15rem;
-    margin-right: 15rem;
-    
-    padding: 20rem;
-    font-size: 32rem;
-    display: flex;
-    justify-content: space-between;
-    /* color: inherit; */
-}
-.setting { 
-    font-size: 20rem;
-    color: #000;
-    position: relative;
-    margin: 20px;
-  }
-
-.circle{
-width: 50rem;
-height: 50rem;
-border-radius: 50%;
-background-color: #fff;
-margin-top: 15rem;
-display: flex;
-justify-content: center;
-align-items: center;
-box-shadow:0 2px 20px -5px black;
-}
+        .none {
+            font-size: 20rem;
+            color: #000;
+            margin: 20px;
+        }
 
 
-.none {
-    font-size: 20rem;
-    color: #000;
-    margin: 20px;
-  }
+
+        /* 상세정보 박스 */
+        #detailImformation {
+            text-align: center;
+
+            font-weight: 590;
+            padding: 0;
+            margin: auto;
+            line-height: 60px;
+            font-size: 16rem;
+        }
+
+        /* 현재 역 이름 박스 */
+        #subwayName {
+            text-align: center;
+
+            font-weight: bold;
+            font-size: 30px;
+            padding: 0;
+            margin: auto;
+            line-height: 150px;
+        }
+
+        /* 다음 역 박스 */
+        #nextSubway {
+            text-align: center;
+
+            font-weight: 590;
+            padding: 0;
+            margin: auto;
+            line-height: 60px;
+            font-size: 15px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        #nowStationbox {
+            position: absolute;
+            width: 80%;
+            margin: auto;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 2px 20px -5px black;
+            border-radius: 10px;
+        } 
 
 
-.notty_logo {
-    margin-top: 8px;
-    padding: 0;
-    font-size: 32px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    font-family: 'MICEGothic Bold';
-}
+        #time_selected {
+            font-size: 16px;
+            text-align: center;
 
-/* 상세정보 박스 */
-#detailImformation {
-    text-align: center;
-    width: 100vw;
-    height: 60px;
-    margin-left: auto; margin-right: auto;
-    font-weight: 590;
-    padding: 0;
-    margin: 0 auto;
-    line-height: 60px;
-    font-size: 16rem;
-}
+        }
 
-/* 현재 역 이름 박스 */
-#subwayName {
-    text-align: center;
-    width: 100vw;
-    height: 150px;
-    margin-left: auto; margin-right: auto;
-    font-weight: bold;
-    font-size: 36px;
-    padding: 0;
-    margin: 0 auto;
-    line-height: 150px;
-}
-
-/* 다음 역 박스 */
-#nextSubway {
-    text-align: center;
-    width: 100vw;
-    height: 60px;
-    margin-left: auto; margin-right: auto;
-    font-weight: 590;
-    padding: 0;
-    margin: 0 auto;
-    line-height: 60px;
-    font-size: 13px;
-}
-
-#nowStationbox {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-#time_selected {
-    font-size: 16px;
-    text-align: center;
-    background-color: #8b4513;
-    color: #ffffff;
-}
 
     </style>
         

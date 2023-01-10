@@ -7,10 +7,8 @@
 
 
 
-  [서비스 링크 바로가기](http://3.37.150.251:8000/)
 # [서비스 링크 바로가기](http://3.37.150.251:8000/)
 ***
-[기획 및 발표자료](https://docs.google.com/presentation/d/1KigGH1A2YDeBQ756GHt1K5aXSITO3-qs/edit?usp=sharing&ouid=109482985170827362384&rtpof=true&sd=true)
 # [기획 및 발표자료](https://docs.google.com/presentation/d/1KigGH1A2YDeBQ756GHt1K5aXSITO3-qs/edit?usp=sharing&ouid=109482985170827362384&rtpof=true&sd=true)
 <p align="center">
 
