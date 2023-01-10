@@ -14,8 +14,9 @@
 
 ***
   #### + 2023-01-10 실시간 지하철 위치 디자인 수정
-  ![IMG_1491](https://user-images.githubusercontent.com/88936783/211473364-daf314ea-a0e6-443c-96f4-a8b3747ee458.PNG)
 
+  <img src="https://user-images.githubusercontent.com/88936783/211473364-daf314ea-a0e6-443c-96f4-a8b3747ee458.PNG" width="40%" height="50%">
+  
 
   ***
   #### + 2023-01-09 메인페이지 디자인 수정, 로딩 애니메이션 변경
