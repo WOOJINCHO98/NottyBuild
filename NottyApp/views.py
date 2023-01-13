@@ -140,6 +140,7 @@ def home(request):
         
         
         user_token = request.POST.get('user_token')
+        print(user_token)
 
         if form.is_valid():
             #데이터 저장
@@ -201,6 +202,7 @@ def home(request):
             answer = request.POST.get('answers')
             print(answer)
             
+
             
             #### 시간 구하기
             KST = pytz.timezone('Asia/Seoul')
