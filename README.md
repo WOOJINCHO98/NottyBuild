@@ -62,20 +62,26 @@ https://user-images.githubusercontent.com/88936783/212669519-ef53afa3-d83a-4f29-
   <img alt="노티 로고" src="https://user-images.githubusercontent.com/88936783/210338947-82a0f2db-5dfe-427b-b168-5f5cf796071d.jpg" width="40%" height="50%">
   <img alt="알림창 스크린샷" src="https://user-images.githubusercontent.com/88936783/210338995-1e62a597-bf7e-41ca-954e-71c30fac4dfe.jpg" width="40%" height="50%">
   <img alt="노티피케이션 스크린샷" src="https://user-images.githubusercontent.com/88936783/210338997-db93d0e3-2746-43a9-bb8b-0880b0a4bbba.jpg" width="40%" height="50%">
-  ![Group 1](https://user-images.githubusercontent.com/88936783/210338946-51f2080b-66fa-44fb-ba07-5ed6ae28fb13.png)
-  ***
+
+![Group 1](https://user-images.githubusercontent.com/88936783/210338946-51f2080b-66fa-44fb-ba07-5ed6ae28fb13.png)
+  
+  
+***
+
 사용 API
 지하철경로조회
 kakao 로컬
 [서울시 지하철역 정보 검색 (역명)](https://data.seoul.go.kr/dataList/OA-121/S/1/datasetView.do)
 [서울교통공사 노선별 지하철역 정보](http://data.seoul.go.kr/dataList/OA-15442/S/1/datasetView.do)
+
 [역코드로 지하철역별 열차 시간표 정보 검색](https://data.seoul.go.kr/dataList/OA-101/A/1/datasetView.do)
+
 [서울교통공사 실시간 지하철 위치 정보](https://data.seoul.go.kr/dataList/OA-12601/A/1/datasetView.do)
- ***
+
 FirebaseCloudMesseging 으로 알림 구현
 
 
-# [OLD REPOSITORY](https://github.com/WOOJINCHO98/Notty)
+# [OLD REPOSITORY Link](https://github.com/WOOJINCHO98/Notty)
 
 
 
