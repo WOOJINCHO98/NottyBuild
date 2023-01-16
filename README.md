@@ -65,18 +65,28 @@ https://user-images.githubusercontent.com/88936783/212669519-ef53afa3-d83a-4f29-
 
 ![Group 1](https://user-images.githubusercontent.com/88936783/210338946-51f2080b-66fa-44fb-ba07-5ed6ae28fb13.png)
   
-  
+
 ***
 
 사용 API
+<br>
 지하철경로조회
+<br>
 kakao 로컬
+<br>
 [서울시 지하철역 정보 검색 (역명)](https://data.seoul.go.kr/dataList/OA-121/S/1/datasetView.do)
+<br>
+
 [서울교통공사 노선별 지하철역 정보](http://data.seoul.go.kr/dataList/OA-15442/S/1/datasetView.do)
+<br>
 
 [역코드로 지하철역별 열차 시간표 정보 검색](https://data.seoul.go.kr/dataList/OA-101/A/1/datasetView.do)
+<br>
 
 [서울교통공사 실시간 지하철 위치 정보](https://data.seoul.go.kr/dataList/OA-12601/A/1/datasetView.do)
+<br>
+
+***
 
 FirebaseCloudMesseging 으로 알림 구현
 
