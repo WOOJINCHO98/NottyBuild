@@ -13,6 +13,17 @@
 <p align="center">
 
 
+
+# 시연 영상
+https://user-images.githubusercontent.com/88936783/212669519-ef53afa3-d83a-4f29-9761-e735ae69c6aa.MP4
+
+***
+  #### + 2023-01-16 상세 경로 화면 수정
+
+
+
+<img src="https://user-images.githubusercontent.com/88936783/212669013-d3006158-aeb3-4a70-881e-dc55e9857e8d.PNG" width="40%" height="50%">
+
 ***
   #### + 2023-01-11 도착 완료 화면 수정
 
@@ -63,6 +74,15 @@ kakao 로컬
  ***
 FirebaseCloudMesseging 으로 알림 구현
 
+
+# [OLD REPOSITORY](https://github.com/WOOJINCHO98/Notty)
+
+
+
 </p>
+
+
+
+
 
 </div>
