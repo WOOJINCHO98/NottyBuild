@@ -17,6 +17,18 @@
 # 시연 영상
 https://user-images.githubusercontent.com/88936783/212669519-ef53afa3-d83a-4f29-9761-e735ae69c6aa.MP4
 
+
+***
+  #### + 2023-01-17 최소환승 현재 위치, 상세 경로 스타일 적용 // 설정 페이지 작성
+
+
+
+<img src="https://user-images.githubusercontent.com/88936783/212848551-76a798e9-8284-452f-b1d0-49bc83afcf2a.PNG" width="40%" height="50%">
+
+<img src="https://user-images.githubusercontent.com/88936783/212848573-e9be5bd4-9efb-4004-9cf1-410512102849.PNG" width="40%" height="50%">
+
+
+
 ***
   #### + 2023-01-16 상세 경로 화면 수정
 
