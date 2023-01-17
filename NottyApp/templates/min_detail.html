@@ -5,18 +5,343 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notty</title>
-    <div>
-        <a href='/real_min' style="font-size:40px">X</a>
 
-        
-        <h1 style="display:inline">Notty</h1>
+    <meta http-equiv="refresh" content= "45 ; url=/min_detail">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        <meta http-equiv="refresh" content= "25; url=/min_detail">
-
-    </div>
 </head>
 <body>
 
+
+
+
+
+    <div class="page2_icons">
+        <div class="circle">
+            <a href='/sht' class="none"><i class="fa-solid fa-x"></i></a>
+        </div>
+        <div class="circle">
+          <a href='/setting/' class="setting">
+            <i class="fa-solid fa-bars"></i>
+          </a>
+        </div>
+      </div>
+
+
+
+
+
+    <div class="up_color">
+        
+        <div class="line_box">
+            <div class="line"></div>
+
+            <div class="line_out">
+                <div class="section">
+                    <div class="small_circle"><i class="fa-solid fa-circle"></i></div>
+                </div>
+                <div class="section">
+                    <div class="small_circle_now"><i class="fa-solid fa-circle"></i></div>
+                    <div class="small_name">{{real_time_position}}</div>
+                </div>
+                <div class="section">
+                    <div class="small_circle"><i class="fa-solid fa-circle"></i></div>
+                    <div class="small_name">{{min_real_path_list.1}}</div>
+                </div>
+                <div class="section">
+                    <div class="small_circle"><i class="fa-solid fa-circle"></i></div>
+                    <div class="small_name">{{min_real_path_list.2}}</div>
+                </div>
+                <div class="section">
+                    <div class="small_circle"><i class="fa-solid fa-circle"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <style>
+
+        @font-face {
+            font-family: 'MICEGothic Bold';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            }
+        @font-face {
+            font-family: 'MICEGothic';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+        
+    html {font-size: 1px;}
+    body {font-size: 1rem;}
+
+    a {
+        text-decoration: none;
+        color: #ffffff;
+        }
+
+    a:visited { text-decoration: none; }
+    a:hover { text-decoration: none; }
+    a:focus { text-decoration: none; }
+    a:hover, a:active { text-decoration: none; }
+
+
+    body {
+        font-family: 'MICEGothic';
+        width: 100vw;
+        height: 100vh;
+        background-color:#F9F9F9;
+        padding: 0;
+        margin: 0;
+    }
+
+
+        .page2_icons {
+            margin-left: 15rem;
+            margin-right: 15rem;
+            
+            padding: 20rem;
+            font-size: 32rem;
+            display: flex;
+            justify-content: space-between;
+            /* color: inherit; */
+        }
+        .setting { 
+            font-size: 20rem;
+            color: #000;
+            position: relative;
+            margin: 20px;
+        }
+
+        .circle{
+        width: 50rem;
+        height: 50rem;
+        border-radius: 50%;
+        background-color: #fff;
+        margin-top: 15rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow:0 2px 20px -5px black;
+        }
+
+
+        .none {
+            font-size: 20rem;
+            color: #000;
+            margin: 20px;
+        }
+
+
+
+
+        .up_color {
+            width: 85%;
+            margin: auto;
+            margin-top: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow:0 2px 20px -5px black;
+        }
+
+        .line_box{
+            position: relative;
+            
+            margin: auto;
+            padding: 20px 20px 20px 20px;
+            /* padding-bottom: 20px; */
+        }
+
+        .line {
+            margin: auto;
+            background-color: #D3D3D3;
+            height: 5px;
+            border-radius: 10px;
+        }
+
+        .line_out{
+            display: flex;
+            justify-content: space-around;
+        }
+
+
+        .section{
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            margin-top: -8px;
+        }
+
+
+        .small_circle {
+            color: #D9D9D9;
+            font-size: 12px;
+        }
+
+        .small_circle_now {
+            color: #8B4513;
+            font-size: 12px;
+        }
+
+        .small_name {
+            margin-top: 3px;
+            font-size: 14rem;
+        }
+
+    </style>
+
+
+    <div class="two">
+        <div class="upup">
+            <div class="time">
+                <p style="display:inline;">소요시간 : </p><p id="time"  style="display:inline;"></p>
+
+                <script>
+                    window.onload = function(){
+                        var sht_path_msg = "{{min_path_msg}}";
+                        var result1 = sht_path_msg.substring(0, 3);
+                        document.getElementById("time").innerHTML = result1;
+                    }
+                </script>
+            </div>
+            <div class="heart_icon">
+                <i class="fa-regular fa-heart"></i>
+            </div>
+        </div>
+        <div class="startst">
+            <div class="startst_in">{{min_path_list.0}}</div>
+            <div class="startst_in">{{min_path_list.1}}</div>
+            <div class="startst_in">{{min_path_list.2}}</div>
+            <div class="startst_in">{{min_path_list.3}}</div>
+            <div class="startst_in">{{min_path_list.4}}</div>
+            <div class="startst_in">{{min_path_list.5}}</div>
+            <div class="startst_in">{{min_path_list.6}}</div>
+            <div class="startst_in">{{min_path_list.7}}</div>
+            <div class="startst_in">{{min_path_list.8}}</div>
+            <div class="startst_in">{{min_path_list.9}}</div>
+            <div class="startst_in">{{min_path_list.10}}</div>
+            <div class="startst_in">{{min_path_list.11}}</div>
+            <div class="startst_in">{{min_path_list.12}}</div>
+            <div class="startst_in">{{min_path_list.13}}</div>
+            <div class="startst_in">{{min_path_list.14}}</div>
+            <div class="startst_in">{{min_path_list.15}}</div>
+            <div class="startst_in">{{min_path_list.16}}</div>
+            <div class="startst_in">{{min_path_list.17}}</div>
+            <div class="startst_in">{{min_path_list.18}}</div>
+            <div class="startst_in">{{min_path_list.19}}</div>
+            <div class="startst_in">{{min_path_list.20}}</div>
+            <div class="startst_in">{{min_path_list.21}}</div>
+            <div class="startst_in">{{min_path_list.22}}</div>
+            <div class="startst_in">{{min_path_list.23}}</div>
+            <div class="startst_in">{{min_path_list.24}}</div>
+            <div class="startst_in">{{min_path_list.25}}</div>
+            <div class="startst_in">{{min_path_list.26}}</div>
+            <div class="startst_in">{{min_path_list.27}}</div>
+            <div class="startst_in">{{min_path_list.28}}</div>
+            <div class="startst_in">{{min_path_list.29}}</div>
+            <div class="startst_in">{{min_path_list.30}}</div>
+            <div class="startst_in">{{min_path_list.31}}</div>
+            <div class="startst_in">{{min_path_list.32}}</div>
+            <div class="startst_in">{{min_path_list.33}}</div>
+            <div class="startst_in">{{min_path_list.34}}</div>
+            <div class="startst_in">{{min_path_list.35}}</div>
+            <div class="startst_in">{{min_path_list.36}}</div>
+            <div class="startst_in">{{min_path_list.37}}</div>
+            <div class="startst_in">{{min_path_list.38}}</div>
+            <div class="startst_in">{{min_path_list.39}}</div>
+            <div class="startst_in">{{min_path_list.40}}</div>
+            <div class="startst_in">{{min_path_list.41}}</div>
+            <div class="startst_in">{{min_path_list.42}}</div>
+            <div class="startst_in">{{min_path_list.43}}</div>
+            <div class="startst_in">{{min_path_list.44}}</div>
+            <div class="startst_in">{{min_path_list.45}}</div>
+            <div class="startst_in">{{min_path_list.46}}</div>
+            <div class="startst_in">{{min_path_list.47}}</div>
+            <div class="startst_in">{{min_path_list.48}}</div>
+            <div class="startst_in">{{min_path_list.49}}</div>
+            <div class="startst_in">{{min_path_list.50}}</div>
+            <div class="startst_in">{{min_path_list.51}}</div>
+            <div class="startst_in">{{min_path_list.52}}</div>
+            <div class="startst_in">{{min_path_list.53}}</div>
+            <div class="startst_in">{{min_path_list.54}}</div>
+            <div class="startst_in">{{min_path_list.55}}</div>
+            <div class="startst_in">{{min_path_list.56}}</div>
+            <div class="startst_in">{{min_path_list.57}}</div>
+            <div class="startst_in">{{min_path_list.58}}</div>
+            <div class="startst_in">{{min_path_list.59}}</div>
+            <div class="startst_in">{{min_path_list.60}}</div>
+            <div class="startst_in">{{min_path_list.61}}</div>
+            <div class="startst_in">{{min_path_list.62}}</div>
+            <div class="startst_in">{{min_path_list.63}}</div>
+            <div class="startst_in">{{min_path_list.64}}</div>
+            <div class="startst_in">{{min_path_list.65}}</div>
+            <div class="startst_in">{{min_path_list.66}}</div>
+            <div class="startst_in">{{min_path_list.67}}</div>
+            <div class="startst_in">{{min_path_list.68}}</div>
+            <div class="startst_in">{{min_path_list.69}}</div>
+            <div class="startst_in">{{min_path_list.70}}</div>
+            <div class="startst_in" id="path_list">{{min_path_list.71}}</div>
+
+            <script>
+                var path_list = document.getElementById("path_list");
+                if (path_list.innerHTML == "") {
+                }
+            </script>
+        </div>
+    </div>
+
+
+    <style>
+        .two{
+            width: 80%;
+            height: 55%;
+            position: relative;
+            margin: auto;
+            margin-top: 30px;
+            padding: 20px 20px 20px 20px;
+            border-radius: 10px;
+            box-shadow:0 2px 20px -5px black;
+        }
+
+        .time {
+            font-weight: bold;
+        }
+
+
+        .upup {
+            display: flex;
+            justify-content: space-between;
+            font-size: 24px;
+            padding-bottom: 13px;
+            border-bottom: 2.8px solid #646464;
+        }
+
+        .startst {
+            height: 90%;
+            display: block;
+            flex-direction: column;
+            overflow-y: scroll;
+        }
+
+        .startst_in {
+            margin: 10px;
+            font-size: 20px;
+        }
+
+
+    </style>
+
+
+
+
+
+    <box class="debug">
 
     <br>
     <p>현재 역 위치 : 
@@ -267,7 +592,12 @@
         <br>            
 
     </div>
-    
+</box>
+<style>
+    .debug {
+        visibility: hidden; 
+    }
+    </style>
 
 
 </body>
