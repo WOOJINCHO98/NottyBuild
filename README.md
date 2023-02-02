@@ -9,7 +9,9 @@
 
 # [http://notty.kro.kr/](http://notty.kro.kr/)
 ***
-# [기획 및 발표자료](https://docs.google.com/presentation/d/1KigGH1A2YDeBQ756GHt1K5aXSITO3-qs/edit?usp=sharing&ouid=109482985170827362384&rtpof=true&sd=true)
+# [기획 및 발표자료 다운로드](https://github.com/WOOJINCHO98/NottyBuild/files/10565610/NOTTY.PPT.pptx)
+
+
 <p align="center">
 
 
