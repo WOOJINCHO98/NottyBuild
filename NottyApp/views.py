@@ -330,6 +330,12 @@ def home(request):
                     i=i+1
             except AttributeError:
                 print("AttributeError")
+                print('form is not valid')
+                form = RouteForm()
+                alert = True
+                return render(request,'home.html',{'form':form,'alert':alert})
+            
+            
             min_sht_path_time = min(path_time)
             for item in path_obj:
                 sht_path_list = item.get('shtStatnNm')
@@ -1707,6 +1713,7 @@ def home(request):
                 #print("UnboundLocalError")
             
             #return render(request,'detail.html',{'time_table_obj':time_table_obj,'trans_line3':trans_line3,'joined_path_station_list3':joined_path_station_list3,'after_trans_path_list3':after_trans_path_list3,'min_after_trans_path_list2':min_after_trans_path_list2,'min_joined_path_station_list2':min_joined_path_station_list2,'min_trans_station2':min_trans_station2,'min_trans_line2':min_trans_line2,'min_path_trans_cnt':min_path_trans_cnt,'sht_path_trans_cnt':sht_path_trans_cnt,'joined_path_station_list2':joined_path_station_list2,'trans_line2':trans_line2,'trans_station2':trans_station2,'after_trans_path_list2':after_trans_path_list2,'min_line':min_line,'min_trans_line':min_trans_line,'min_joined_path_station_list':min_joined_path_station_list,'min_after_trans_path_list':min_after_trans_path_list,'trans_line':trans_line,'after_trans_path_list':after_trans_path_list,'joined_path_station_list':joined_path_station_list,'line_obj':line_obj,'sht_line':sht_line,'min_min_path_time':min_min_path_time,'min_path_time':min_path_time,'obj' : obj,'min_path_list':min_path_list,'min_path_msg':min_path_msg,'sht_path_msg':sht_path_msg,'min_sht_path_time':min_sht_path_time,'path_time':path_time,'sht_path_list':sht_path_list,'path_obj':path_obj,'dest_obj':dest_obj , 'finobj' : finobj})
+
 
     else:
         form = RouteForm()
